@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GuideApp</title>
+	<link rel="stylesheet"  href="estilos/estilos_registro.css">
+
+
+	<link rel="shortcut icon"  href="img/icon.png"/>
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Open+Sans|Pacifico" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fjalla+One|Josefin+Sans|Noto+Serif|PT+Serif" rel="stylesheet">
+	<meta charset="utf-8">
+  <style>
+  *{
+    border: 0;
+  margin: 0;
+  padding: 0;
+
+}
+
+#big-section .contenedor{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  margin-top: 200px;
+
+background-color:rgba(255,255,255, 0.3);
+
+
+}
+
+#big-section .form_titulo{
+
+}
+
+#big-section .contenedor-inputs{
+  padding: 10px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+input{
+  
+  margin-top: 10px;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 3px;
+  
+  background: white;
+
+}
+.input-48{
+  width: 40%;
+  
+
+
+}
+.input-100{
+  width: 87%;
+}
+
+.btn-enviar{
+  background-color: #FFC107;
+  border:3px solid #FFC107;
+  color: #fff;
+  margin: auto;
+  padding:  10px 40px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.btn-enviar:active{
+  transform: scale(1.01);
+}
+.btn-enviar:hover{
+  background: #FBC02D;
+}
+
+    body {
+      margin: 0;
+    }
+    .container {
+
+      height: 694px;
+      background:linear-gradient( #0288D1, #18FFFF);;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+       overflow: hidden;
+    }
+    .content {
+      font-family: Arial;
+      text-align: center;
+      font-size: 2em;
+      color: rgba(255,255,255, .8);
+    }
+
+    .waves {
+      position: absolute;
+/*      left: 0;
+      right: 0;
+      height: 200px;
+      bottom: 0;*/
+      bottom: -135px;
+      height: 527px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .wave {
+      position: absolute;
+      left: -180px;
+      bottom: 0;
+      /*width: 200px;*/
+      /*height: 200px;*/
+      /*width: 100%;*/
+      /*border-radius: 50%;*/
+      /*background:rgba(0,0,0, .3);*/
+      width: 2402px;
+      height: 427px;
+      background: url(img/waves.png) center bottom no-repeat;
+      animation: 5s wave ease-in-out infinite alternate;
+    }
+    .wave.a {
+      background-position: 0 -854px;
+    }
+    .wave.b {
+      background-position: 0 -427px;
+      animation-delay: .6s;
+    }
+    .wave.c {
+      background-position: 0 0;
+      animation-delay: 1.2s;
+    }
+    /*.container {
+      position: absolute;
+    }*/
+    @keyframes wave {
+      0% {
+        transform: translate(0 , 0);
+      }
+      50% {
+        transform: translate(-80px, 30px);
+      }
+      100% {
+        transform: translate(160px, -60px);
+      }
+    }
+  </style>
+
+</head>
+<body >
+
+ <center>
+  <div class="container">
+    <div class="content">
+
+    </div>
+    <div class="waves">
+      <div class="wave circulo a"></div>
+      <div class="wave circulo b"></div>
+      <div class="wave circulo c"></div>
+    </div>
+  </div>
+
+<center>
+
+<div class="contenedor" >
+				<form action="insertar.php" method="post" class="form-register" style="width: 500px;
+				margin: auto;
+				
+				border-radius: 7px;
+				position: absolute;
+				top: 55%;
+				left: 50%;
+				transform: translateX(-50%);
+				margin-top: -250px;
+				background: #EEEEEE">
+				<h2 class="form_titulo" style="font-family: sans-serif;
+				background-color: black;
+				color: #fff;
+				
+				text-align: center;
+				font-weight: 100px;
+				font-size:  30px;
+				border-top-right-radius: 7px;
+				border-top-left-radius: 7px;
+				border-bottom: 3px solid #FFC107;
+				margin-top: -1px;"><img style="width: 150px;margin-top: 5px; height: 80px;" src="img/logo.png"></h2>
+
+	<div class="contenedor-inputs">
+ 		<input required="" type="text" name="nom" placeholder="Nombre" class="input-48"> 
+ 		<input required="" type="text" name="ape" placeholder="Apellido" class="input-48"> 
+		<input required="" type="email" name="corr" placeholder="E-mail" class="input-100"> 
+ 		<input required="" type="text" name="col" placeholder="Colegio" class="input-100"> 
+ 		<input required="" type="text" name="grad" placeholder="grado" class="input-48"> 
+ 		 
+ 		<input required="" type="text" name="ciu" placeholder="Ciudad" class="input-48"> 
+		<input type="submit" value="Continuar" class="btn-enviar">
+	</div>
+	</div>
+</form>
+
+
+
+</center>
+
+</body>
+</html>
