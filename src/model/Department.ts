@@ -1,23 +1,23 @@
 export class Department {
-    private _id: number;
-    private _code: number;
-    private _name: string;
-  
-    constructor(id: number, code: number, name: string,) {
-        this._id = id;
-        this._code = code;
-        this._name = name;    
-    }
+  private _id: number;
+  private _code: number;
+  private _name: string;
 
-    get id(): number {
-        return this._code;
-    }
+  constructor(id: number, code: number, name: string) {
+    this._id = id;
+    this._code = code;
+    this._name = name;
+  }
 
-    get code(): number {
-        return this._code;
-    }
+  get id(): number {
+    return this._code;
+  }
 
-    get name(): string {
-        return this._name;
-    }
+  get code(): number {
+    return this._code;
+  }
+
+  get name(): string {
+    return this._name;
+  }
 }

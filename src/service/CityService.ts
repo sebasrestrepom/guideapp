@@ -4,12 +4,11 @@ import { CityRepository } from 'src/repository/CityRepository';
 
 @Injectable()
 export class CityService {
-    constructor(
-        @Inject('CityRepository') private cityRepository: CityRepository,
-    ){
-    }
+  constructor(
+    @Inject('CityRepository') private cityRepository: CityRepository,
+  ) {}
 
-    getByDepartment(departmentId:number): Promise<City[]>{
-        return this.cityRepository.getByDepartment(departmentId);
-    }
+  getByDepartment(departmentId: number): Promise<City[]> {
+    return this.cityRepository.getByDepartment(departmentId);
+  }
 }
