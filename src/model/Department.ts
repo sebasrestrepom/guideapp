@@ -10,7 +10,7 @@ export class Department {
   }
 
   get id(): number {
-    return this._code;
+    return this._id;
   }
 
   get code(): number {
