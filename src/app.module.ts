@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { CityController } from './controller/CityController';
-import { DepartmentController } from './controller/DepartmentController';
-import { SQLDepartmentRepository } from './repository/SQLDepartmentRepository';
-import { SQLCityRepository } from './repository/SQLCityRepository';
-import { SQLSchoolRepository } from './repository/SQLSchoolRepository';
-import { CityService } from './service/CityService';
-import { SchoolController } from './controller/SchoolController';
-import { DepartmentService } from './service/DeparmentService';
-import { SchoolService } from './service/SchoolService';
+import { CityController } from './city/controller/CityController';
+import { DepartmentController } from './department/controller/DepartmentController';
+import { SQLDepartmentRepository } from './department/repository/SQLDepartmentRepository';
+import { SQLCityRepository } from './city/repository/SQLCityRepository';
+import { SQLSchoolRepository } from './school/repository/SQLSchoolRepository';
+import { CityService } from './city/service/CityService';
+import { SchoolController } from './school/controller/SchoolController';
+import { DepartmentService } from './department/service/DeparmentService';
+import { SchoolService } from './school/service/SchoolService';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './ormconfig';
 
@@ -19,17 +17,11 @@ import * as ormconfig from './ormconfig';
       ...ormconfig,
     }),
   ],
-  controllers: [
-    AppController,
-    DepartmentController,
-    CityController,
-    SchoolController,
-  ],
+  controllers: [DepartmentController, CityController, SchoolController],
   providers: [
     { provide: 'DepartmentRepository', useClass: SQLDepartmentRepository },
     { provide: 'CityRepository', useClass: SQLCityRepository },
     { provide: 'SchoolRepository', useClass: SQLSchoolRepository },
-    AppService,
     DepartmentService,
     CityService,
     SchoolService,
