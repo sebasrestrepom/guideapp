@@ -24,13 +24,11 @@ describe('CityController (e2e)', () => {
     await app.init();
   });
 
-  test('/city/get-by-department/1 (GET)', () => {
+  test('/city/get-by-department/9 (GET)', () => {
     return request(app.getHttpServer())
-      .get('/city/get-by-department/1')
+      .get('/city/get-by-department/9')
       .expect(200)
-      .expect([
-        { id: 1, departmentId: 1, code: 1, name: 'Medellín' },
-      ]);
+      .expect([{ id: 5, departmentId: 9, code: 2, name: 'Medellín' }]);
   });
 
   afterAll(async () => {

@@ -5,9 +5,9 @@ import { CityController } from './controller/CityController';
 import { DepartmentController } from './controller/DepartmentController';
 import { SQLDepartmentRepository } from './repository/SQLDepartmentRepository';
 import { SQLCityRepository } from './repository/SQLCityRepository';
+import { SQLSchoolRepository } from './repository/SQLSchoolRepository';
 import { CityService } from './service/CityService';
 import { SchoolController } from './controller/SchoolController';
-import { InMemorySchoolRepository } from './repository/InMemorySchoolRepository';
 import { DepartmentService } from './service/DeparmentService';
 import { SchoolService } from './service/SchoolService';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -28,7 +28,7 @@ import * as ormconfig from './ormconfig';
   providers: [
     { provide: 'DepartmentRepository', useClass: SQLDepartmentRepository },
     { provide: 'CityRepository', useClass: SQLCityRepository },
-    { provide: 'SchoolRepository', useClass: InMemorySchoolRepository },
+    { provide: 'SchoolRepository', useClass: SQLSchoolRepository },
     AppService,
     DepartmentService,
     CityService,
