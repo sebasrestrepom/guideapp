@@ -5,7 +5,7 @@ export class InMemoryCityRepository implements CityRepository {
   getByDepartment(departmentId: number): Promise<City[]> {
     const list: City[] = [];
 
-    list.push(new City(1, 1, 1, 'Medellín'));
+    list.push(new City(5, 9, 2, 'Medellín'));
 
     const response: City[] = list.filter((city) => {
       return city.departmentId === departmentId;
