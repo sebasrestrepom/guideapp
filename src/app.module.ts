@@ -3,8 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CityController } from './controller/CityController';
 import { DepartmentController } from './controller/DepartmentController';
-import { InMemoryCityRepository } from './repository/InMemoryCityRepository';
 import { SQLDepartmentRepository } from './repository/SQLDepartmentRepository';
+import { SQLCityRepository } from './repository/SQLCityRepository';
 import { CityService } from './service/CityService';
 import { SchoolController } from './controller/SchoolController';
 import { InMemorySchoolRepository } from './repository/InMemorySchoolRepository';
@@ -27,7 +27,7 @@ import * as ormconfig from './ormconfig';
   ],
   providers: [
     { provide: 'DepartmentRepository', useClass: SQLDepartmentRepository },
-    { provide: 'CityRepository', useClass: InMemoryCityRepository },
+    { provide: 'CityRepository', useClass: SQLCityRepository },
     { provide: 'SchoolRepository', useClass: InMemorySchoolRepository },
     AppService,
     DepartmentService,
