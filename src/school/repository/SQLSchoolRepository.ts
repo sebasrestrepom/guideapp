@@ -4,7 +4,7 @@ import { EntityManager } from 'typeorm';
 import { SchoolRepository } from './SchoolRepository';
 
 export class SQLSchoolRepository implements SchoolRepository {
-  constructor(@InjectEntityManager() private manager: EntityManager) { }
+  constructor(@InjectEntityManager() private manager: EntityManager) {}
 
   async save(school: School): Promise<School> {
     const result = await this.manager.query(
@@ -13,6 +13,14 @@ export class SQLSchoolRepository implements SchoolRepository {
     );
     const newSchool = new School(result.insertId, school.cityId, school.name);
     return newSchool;
+  }
+
+  async delete(school: School): Promise<School> {
+    const result = await this.manager.query(`DELETE FROM school WHERE id = ?`, [
+      school.id,
+    ]);
+
+    return result;
   }
 
   async getByCity(cityId: number): Promise<School[]> {

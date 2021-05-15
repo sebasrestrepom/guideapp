@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { SchoolService } from 'src/school/service/SchoolService';
-import { School } from '../model/School';
 
 class GetByCityResponse {
   id: number;
@@ -19,9 +18,21 @@ class SaveSchoolRequest {
   name: string;
 }
 
+class DeleteSchoolResponse {
+  id: number;
+  cityId: number;
+  name: string;
+}
+
+class DeleteSchoolRequest {
+  id: number;
+  cityId: number;
+  name: string;
+}
+
 @Controller()
 export class SchoolController {
-  constructor(private schoolService: SchoolService) { }
+  constructor(private schoolService: SchoolService) {}
 
   @Post('school/save-school')
   async saveSchool(
@@ -30,6 +41,22 @@ export class SchoolController {
     const school = await this.schoolService.saveSchool(
       request.cityId,
       request.name,
+    );
+
+    return {
+      id: school.id,
+      cityId: school.cityId,
+      name: school.name,
+    };
+  }
+
+  @Delete('school/delete-school/:id')
+  async deleteSchool(
+    @Param('id') id: number,
+    @Body() request: DeleteSchoolRequest,
+  ): Promise<DeleteSchoolResponse> {
+    const school = await this.schoolService.deleteSchool(
+      id
     );
 
     return {

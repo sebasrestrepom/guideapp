@@ -16,4 +16,9 @@ export class SchoolService {
     const school = new School(undefined, cityId, name);
     return this.schoolRepository.save(school);
   }
+
+  deleteSchool(id: number): Promise<School> {
+    const school = new School(id, undefined, undefined);
+    return this.schoolRepository.delete(school);
+  }
 }
