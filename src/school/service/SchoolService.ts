@@ -11,4 +11,9 @@ export class SchoolService {
   getByCity(cityId: number): Promise<School[]> {
     return this.schoolRepository.getByCity(cityId);
   }
+
+  saveSchool(cityId: number, name: string): Promise<School> {
+    const school = new School(undefined, cityId, name);
+    return this.schoolRepository.save(school);
+  }
 }

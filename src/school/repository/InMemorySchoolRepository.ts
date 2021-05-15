@@ -2,6 +2,9 @@ import { School } from 'src/school/model/School';
 import { SchoolRepository } from './SchoolRepository';
 
 export class InMemorySchoolRepository implements SchoolRepository {
+  save(school: School): Promise<School> {
+    throw new Error('Method not implemented.');
+  }
   getByCity(cityId: number): Promise<School[]> {
     const list: School[] = [];
 
