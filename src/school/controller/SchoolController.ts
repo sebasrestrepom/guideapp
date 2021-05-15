@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { SchoolService } from 'src/school/service/SchoolService';
 import { School } from '../model/School';
 
@@ -19,9 +19,20 @@ class SaveSchoolRequest {
   name: string;
 }
 
+class UpdateSchoolResponse {
+  id: number;
+  cityId: number;
+  name: string;
+}
+
+class UpdateSchoolRequest {
+  cityId: number;
+  name: string;
+}
+
 @Controller()
 export class SchoolController {
-  constructor(private schoolService: SchoolService) { }
+  constructor(private schoolService: SchoolService) {}
 
   @Post('school/save-school')
   async saveSchool(
@@ -32,6 +43,23 @@ export class SchoolController {
       request.name,
     );
 
+    return {
+      id: school.id,
+      cityId: school.cityId,
+      name: school.name,
+    };
+  }
+
+  @Put('school/update-school/:id')
+  async updateSchool(
+    @Param('id') id: number,
+    @Body() request: UpdateSchoolRequest,
+  ): Promise<UpdateSchoolResponse> {
+    const school = await this.schoolService.updateSchool(
+      id,
+      request.cityId,
+      request.name,
+    );
     return {
       id: school.id,
       cityId: school.cityId,

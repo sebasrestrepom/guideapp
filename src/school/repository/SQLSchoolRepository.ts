@@ -14,6 +14,14 @@ export class SQLSchoolRepository implements SchoolRepository {
     const newSchool = new School(result.insertId, school.cityId, school.name);
     return newSchool;
   }
+  async update(school: School): Promise<School> {
+    const result = await this.manager.query(
+      `UPDATE school SET cityId = ?,name = ? WHERE id = ?`,
+      [school.cityId, school.name,school.id],
+    );
+    const updateSchool = new School(result.insertId, school.cityId, school.name);
+    return updateSchool;
+  }
 
   async getByCity(cityId: number): Promise<School[]> {
     const rows = await this.manager.query(

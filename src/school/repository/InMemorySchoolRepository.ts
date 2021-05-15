@@ -2,6 +2,9 @@ import { School } from 'src/school/model/School';
 import { SchoolRepository } from './SchoolRepository';
 
 export class InMemorySchoolRepository implements SchoolRepository {
+  update(school: School): Promise<School> {
+    throw new Error('Method not implemented.');
+  }
   save(school: School): Promise<School> {
     throw new Error('Method not implemented.');
   }

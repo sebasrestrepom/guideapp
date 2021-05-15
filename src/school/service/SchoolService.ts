@@ -16,4 +16,9 @@ export class SchoolService {
     const school = new School(undefined, cityId, name);
     return this.schoolRepository.save(school);
   }
+
+  updateSchool(id: number,cityId: number, name: string): Promise<School> {
+    const school = new School(id, cityId, name);
+    return this.schoolRepository.update(school);
+  }
 }
