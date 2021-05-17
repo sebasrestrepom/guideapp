@@ -18,18 +18,6 @@ class SaveSchoolRequest {
   name: string;
 }
 
-class DeleteSchoolResponse {
-  id: number;
-  cityId: number;
-  name: string;
-}
-
-class DeleteSchoolRequest {
-  id: number;
-  cityId: number;
-  name: string;
-}
-
 @Controller()
 export class SchoolController {
   constructor(private schoolService: SchoolService) {}
@@ -51,19 +39,8 @@ export class SchoolController {
   }
 
   @Delete('school/delete-school/:id')
-  async deleteSchool(
-    @Param('id') id: number,
-    @Body() request: DeleteSchoolRequest,
-  ): Promise<DeleteSchoolResponse> {
-    const school = await this.schoolService.deleteSchool(
-      id
-    );
-
-    return {
-      id: school.id,
-      cityId: school.cityId,
-      name: school.name,
-    };
+  async deleteSchool(@Param('id') id: number): Promise<void> {
+    await this.schoolService.deleteSchool(id);
   }
 
   @Get('school/get-by-city/:cityId')
