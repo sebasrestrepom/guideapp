@@ -29,7 +29,12 @@ describe('QuestionController (e2e)', () => {
       .get('/question/get-all')
       .expect(200)
       .expect([
-        { id: 1, categoryId: 3, vocationId: 20, name: 'Te gustan los deportes ?' },
+        {
+          id: 1,
+          categoryId: 3,
+          vocationId: 20,
+          name: 'Te gustan los deportes ?',
+        },
       ]);
   });
 
