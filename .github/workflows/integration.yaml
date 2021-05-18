@@ -7,7 +7,7 @@ on:
 jobs:
   pull_request_main:
     runs-on: ubuntu-latest
-    servies:
+    services:
       mysql_db:
         image: mysql:5.7
         env:
