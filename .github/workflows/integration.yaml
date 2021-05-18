@@ -1,0 +1,41 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  pull_request_main:
+    runs-on: ubuntu-latest
+    servies:
+      mysql_db:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: guideapp
+          MYSQL_DATABASE: guideappdb
+          MYSQL_USER: guideappuser
+          MYSQL_PASSWORD: guideapp
+        ports:
+          - '3306:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Lint
+        run: npm run lint
+      - name: Run Migrations
+        run: npm run migration:run
+        env:
+          DATABASE_USERNAME: guideappuser
+          DATABASE_PASSWORD: guideapp
+          DATABASE_HOST: 127.0.0.1
+          DATABASE_PORT: ${{ job.services.mariadb.ports[3306] }}
+          DATABASE_NAME: guideappdb
+      - name: Run E2E Tests
+        run: npm run test:e2e
+      - name: Run Build
+        run: npm run build
