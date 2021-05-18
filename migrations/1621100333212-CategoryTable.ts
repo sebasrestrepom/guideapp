@@ -9,7 +9,7 @@ export class CategoryTable1621100333212 implements MigrationInterface {
     await queryRunner.query(`ALTER TABLE category ADD PRIMARY KEY (id);`);
 
     await queryRunner.query(`ALTER TABLE category
-      MODIFY id bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1127;`);
+      MODIFY id bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
