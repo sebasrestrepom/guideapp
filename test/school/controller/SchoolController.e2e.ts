@@ -48,6 +48,15 @@ describe('SchoolController (e2e)', () => {
       .expect(200);
   });
 
+  test('/school/update-school/1 (PUT)', async () => {
+    const school = new School(1, 3, 'Colegio Teresiano');
+    await schoolRepository.save(school);
+
+    return request(app.getHttpServer())
+      .put('/school/update-school/1')
+      .expect(200);
+  });
+
   afterAll(async () => {
     await app.close();
   });

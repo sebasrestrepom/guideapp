@@ -4,6 +4,15 @@ import { SchoolRepository } from './SchoolRepository';
 export class InMemorySchoolRepository implements SchoolRepository {
   private _database = new Map<string, School>();
 
+  update(school: School): Promise<School> {
+    const newIndex = this._database.size + 1;
+    const newSchool = new School(newIndex, school.cityId, school.name);
+
+    this._database.set(`${newSchool.id}`, newSchool);
+
+    return Promise.resolve(newSchool);
+  }
+
   delete(schoolId: number): Promise<void> {
     this._database.delete(`${schoolId}`);
     return Promise.resolve();

@@ -24,4 +24,17 @@ export class SchoolService {
     }
     this.schoolRepository.delete(schoolId);
   }
+
+  async updateSchool(id: number, cityId: number, name: string): Promise<void> {
+    const school = await this.schoolRepository.findById(id);
+    if (school === undefined) {
+      throw new Error('School not found');
+    }
+    const city = await this.schoolRepository.getByCity(cityId);
+    if (city == undefined) {
+      throw new Error('City not found');
+    }
+    const updateSchool = new School(id, cityId, name);
+    return this.schoolRepository.update(updateSchool);
+  }
 }
