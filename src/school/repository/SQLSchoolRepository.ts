@@ -33,6 +33,13 @@ export class SQLSchoolRepository implements SchoolRepository {
     await this.manager.query(`DELETE FROM school WHERE id = ?`, [schoolId]);
   }
 
+  async update(school: School): Promise<void> {
+    await this.manager.query(
+      `UPDATE school SET cityId = ?,name = ? WHERE id = ?`,
+      [school.cityId, school.name, school.id],
+    );
+  }
+
   async getByCity(cityId: number): Promise<School[]> {
     const rows = await this.manager.query(
       `SELECT id,cityId, name FROM school WHERE cityId=?`,
