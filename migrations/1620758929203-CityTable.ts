@@ -11,7 +11,7 @@ export class CityTable1620758929203 implements MigrationInterface {
     );
     await queryRunner.query(`ALTER TABLE city
           MODIFY id bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1127;`);
-
+            
     await queryRunner.query(`ALTER TABLE city
   ADD CONSTRAINT city_ibfk_1 FOREIGN KEY (departmentId) REFERENCES department (id);
 `);
