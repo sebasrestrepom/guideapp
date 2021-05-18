@@ -1,4 +1,4 @@
-import { Injectable, Inject, NotFoundException } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { City } from 'src/city/model/City';
 import { CityRepository } from 'src/city/repository/CityRepository';
 
