@@ -13,8 +13,7 @@ export class SchoolService {
   }
 
   saveSchool(cityId: number, name: string): Promise<School> {
-    const school = new School(undefined, cityId, name);
-    return this.schoolRepository.save(school);
+
   }
 
   async deleteSchool(schoolId: number): Promise<void> {
