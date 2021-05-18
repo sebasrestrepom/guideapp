@@ -6,12 +6,10 @@ import { QuestionRepository } from './QuestionRepository';
 export class SQLQuestionRepository implements QuestionRepository {
   constructor(@InjectEntityManager() private manager: EntityManager) {}
 
-  async getById(id: number): Promise<Question[]> {
+  async getAll(): Promise<Question[]> {
     const rows = await this.manager.query(
-      `SELECT id, categoryId, vocationId, name FROM question WHERE id=?`,
-      [id],
+      `SELECT id, categoryId, vocationId, name FROM question`,
     );
-
     const result = rows.map(
       (row) => new Question(row.id, row.categoryId, row.vocationId, row.name),
     );

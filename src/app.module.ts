@@ -20,7 +20,12 @@ import * as ormconfig from './ormconfig';
       ...ormconfig,
     }),
   ],
-  controllers: [DepartmentController, CityController, SchoolController, QuestionController],
+  controllers: [
+    DepartmentController,
+    CityController,
+    SchoolController,
+    QuestionController,
+  ],
   providers: [
     { provide: 'DepartmentRepository', useClass: SQLDepartmentRepository },
     { provide: 'CityRepository', useClass: SQLCityRepository },

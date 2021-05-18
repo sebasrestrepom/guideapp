@@ -1,7 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { QuestionService } from 'src/question/service/QuestionService';
 
-class GetByIdResponse {
+class GetAllResponse {
   id: number;
   categoryId: number;
   vocationId: number;
@@ -12,11 +12,11 @@ class GetByIdResponse {
 export class QuestionController {
   constructor(private questionService: QuestionService) {}
 
-  @Get('question/get-by-id/:id')
-  async getById(@Param('id') id: string): Promise<GetByIdResponse[]> {
-    const questions = await this.questionService.getById(parseInt(id, 10));
+  @Get('question/get-all')
+  async getAll(): Promise<GetAllResponse[]> {
+    const questions = await this.questionService.getAll();
 
-    const response: GetByIdResponse[] = questions.map((question) => {
+    const response: GetAllResponse[] = questions.map((question) => {
       return {
         id: question.id,
         categoryId: question.categoryId,
@@ -24,7 +24,6 @@ export class QuestionController {
         name: question.name,
       };
     });
-
     return response;
   }
 }

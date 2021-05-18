@@ -2,15 +2,11 @@ import { Question } from 'src/question/model/Question';
 import { QuestionRepository } from './QuestionRepository';
 
 export class InMemoryQuestionRepository implements QuestionRepository {
-  getById(id: number): Promise<Question[]> {
+  getAll(): Promise<Question[]> {
     const list: Question[] = [];
 
-    list.push(new Question(1, 4, 9, '¿Te gustan los deportes?'));
+    list.push(new Question(1, 3, 20, 'Te gustan los deportes ?'));
 
-    const response: Question[] = list.filter((question) => {
-      return question.id === id;
-    });
-
-    return Promise.resolve(response);
+    return Promise.resolve(list);
   }
 }
