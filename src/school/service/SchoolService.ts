@@ -34,7 +34,6 @@ export class SchoolService {
     if (city == undefined) {
       throw new Error('City not found');
     }
-    const updateSchool = new School(id, cityId, name);
-    return this.schoolRepository.update(updateSchool);
+    school.update(cityId, name);
   }
 }
