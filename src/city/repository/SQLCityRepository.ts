@@ -18,7 +18,7 @@ export class SQLCityRepository implements CityRepository {
     return Promise.resolve(result);
   }
 
-  async findById(cityId: number): Promise<City> {
+  async findById(cityId: number): Promise<City[]> {
     const rows = await this.manager.query(
       `SELECT id, departmentId, code, name FROM city WHERE id=?`,
       [cityId],
@@ -28,12 +28,12 @@ export class SQLCityRepository implements CityRepository {
       return undefined;
     }
 
-    const result = new City(
+    const result = rows.push(new City(
       rows[0].id,
       rows[0].departmentId,
       rows[0].code,
       rows[0].name,
-    );
+    ));
     return result;
   }
 }

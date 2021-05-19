@@ -15,6 +15,7 @@ export class InMemoryCityRepository implements CityRepository {
 
     return Promise.resolve(response);
   }
+
   findById(cityId: number): Promise<City[]> {
     const list: City[] = [];
 
