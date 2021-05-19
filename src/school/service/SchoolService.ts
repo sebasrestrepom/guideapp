@@ -1,11 +1,13 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { School } from 'src/school/model/School';
 import { SchoolRepository } from 'src/school/repository/SchoolRepository';
+import { CityRepository } from 'src/city/repository/CityRepository';
 
 @Injectable()
 export class SchoolService {
   constructor(
     @Inject('SchoolRepository') private schoolRepository: SchoolRepository,
+    @Inject('CityRepository') private cityRepository: CityRepository,
   ) {}
 
   getByCity(cityId: number): Promise<School[]> {
@@ -30,10 +32,11 @@ export class SchoolService {
     if (school === undefined) {
       throw new Error('School not found');
     }
-    const city = await this.schoolRepository.getByCity(cityId);
-    if (city == undefined) {
+    const city = await this.cityRepository.findById(cityId);
+    if (city === undefined) {
       throw new Error('City not found');
     }
-    school.update(cityId, name);
+    school.updateData(cityId, name);
+    return this.schoolRepository.update(school);
   }
 }
