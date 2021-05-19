@@ -28,12 +28,9 @@ export class SQLCityRepository implements CityRepository {
       return undefined;
     }
 
-    const result = rows.push(new City(
-      rows[0].id,
-      rows[0].departmentId,
-      rows[0].code,
-      rows[0].name,
-    ));
+    const result = rows.push(
+      new City(rows[0].id, rows[0].departmentId, rows[0].code, rows[0].name),
+    );
     return result;
   }
 }
