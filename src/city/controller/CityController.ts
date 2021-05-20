@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 import { CityService } from 'src/city/service/CityService';
 
 class GetByDepartmentResponse {
@@ -16,8 +17,13 @@ class SaveCityResponse {
 }
 
 class SaveCityRequest {
+  @IsNotEmpty()
+  @IsNumber()
   departmentId: number;
+  @IsNotEmpty()
+  @IsNumber()
   code: number;
+  @IsNotEmpty()
   name: string;
 }
 

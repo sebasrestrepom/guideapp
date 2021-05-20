@@ -7,6 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 import { SchoolService } from 'src/school/service/SchoolService';
 
 class GetByCityResponse {
@@ -22,12 +23,18 @@ class SaveSchoolResponse {
 }
 
 class SaveSchoolRequest {
+  @IsNotEmpty()
+  @IsNumber()
   cityId: number;
+  @IsNotEmpty()
   name: string;
 }
 
 class UpdateSchoolRequest {
+  @IsNotEmpty()
+  @IsNumber()
   cityId: number;
+  @IsNotEmpty()
   name: string;
 }
 
