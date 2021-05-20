@@ -13,4 +13,16 @@ export class InMemoryCityRepository implements CityRepository {
 
     return Promise.resolve(response);
   }
+
+  findById(cityId: number): Promise<City[]> {
+    const list: City[] = [];
+
+    list.push(new City(5, 9, 2, 'Medellín'));
+
+    const response: City[] = list.filter((city) => {
+      return city.id === cityId;
+    });
+
+    return Promise.resolve(response);
+  }
 }

@@ -1,4 +1,9 @@
 export class School {
+  updateData(cityId: number, name: string) {
+    this._cityId = cityId;
+    this._name = name;
+  }
+
   private _id: number;
   private _cityId: number;
   private _name: string;

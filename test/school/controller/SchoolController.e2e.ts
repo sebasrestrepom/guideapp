@@ -6,6 +6,9 @@ import { InMemorySchoolRepository } from 'src/school/repository/InMemorySchoolRe
 import { SchoolService } from 'src/school/service/SchoolService';
 import { SchoolRepository } from 'src/school/repository/SchoolRepository';
 import { School } from 'src/school/model/School';
+import { CityService } from 'src/city/service/CityService';
+import { CityController } from 'src/city/controller/CityController';
+import { InMemoryCityRepository } from 'src/city/repository/InMemoryCityRepository';
 
 describe('SchoolController (e2e)', () => {
   let app: INestApplication;
@@ -15,13 +18,18 @@ describe('SchoolController (e2e)', () => {
     schoolRepository = new InMemorySchoolRepository();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      controllers: [SchoolController],
+      controllers: [SchoolController, CityController],
       providers: [
         {
           provide: 'SchoolRepository',
           useValue: schoolRepository,
         },
+        {
+          provide: 'CityRepository',
+          useClass: InMemoryCityRepository,
+        },
         SchoolService,
+        CityService,
       ],
     }).compile();
 
@@ -45,6 +53,15 @@ describe('SchoolController (e2e)', () => {
 
     return request(app.getHttpServer())
       .delete('/school/delete-school/1')
+      .expect(200);
+  });
+
+  test('/school/update-school/1 (PUT)', async () => {
+    const school = new School(1, 5, 'Colegio Teresiano');
+    await schoolRepository.save(school);
+
+    return request(app.getHttpServer())
+      .put('/school/update-school/1')
       .expect(200);
   });
 
