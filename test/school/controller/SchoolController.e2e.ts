@@ -6,13 +6,18 @@ import { InMemorySchoolRepository } from 'src/school/repository/InMemorySchoolRe
 import { SchoolService } from 'src/school/service/SchoolService';
 import { SchoolRepository } from 'src/school/repository/SchoolRepository';
 import { School } from 'src/school/model/School';
+import { InMemoryCityRepository } from 'src/city/repository/InMemoryCityRepository';
+import { City } from 'src/city/model/City';
+import { CityRepository } from 'src/city/repository/CityRepository';
 
 describe('SchoolController (e2e)', () => {
   let app: INestApplication;
   let schoolRepository: SchoolRepository;
+  let cityRepository: CityRepository;
 
   beforeEach(async () => {
     schoolRepository = new InMemorySchoolRepository();
+    cityRepository = new InMemoryCityRepository();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       controllers: [SchoolController],
@@ -20,6 +25,10 @@ describe('SchoolController (e2e)', () => {
         {
           provide: 'SchoolRepository',
           useValue: schoolRepository,
+        },
+        {
+          provide: 'CityRepository',
+          useValue: cityRepository,
         },
         SchoolService,
       ],
@@ -46,6 +55,25 @@ describe('SchoolController (e2e)', () => {
     return request(app.getHttpServer())
       .delete('/school/delete-school/1')
       .expect(200);
+  });
+
+  test('/school/update-school/1 (PUT)', async () => {
+    const school = new School(1, 1, 'Colegio Teresiano');
+    const city = new City(1, 9, 2, 'Medellín');
+    const city2 = new City(2, 9, 3, 'Cartago');
+    await schoolRepository.save(school);
+    await cityRepository.save(city);
+    await cityRepository.save(city2);
+
+    await request(app.getHttpServer())
+      .put('/school/update-school/1')
+      .send({ cityId: 2, name: 'Colegio Mayor' })
+      .expect(200);
+
+    const schoolDb = await schoolRepository.findById(school.id);
+    expect(schoolDb.id).toBe(1);
+    expect(schoolDb.cityId).toBe(2);
+    expect(schoolDb.name).toBe('Colegio Mayor');
   });
 
   afterAll(async () => {

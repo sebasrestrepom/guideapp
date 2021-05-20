@@ -42,4 +42,11 @@ export class SQLSchoolRepository implements SchoolRepository {
     const result = rows.map((row) => new School(row.id, row.cityId, row.name));
     return result;
   }
+
+  async update(school: School): Promise<void> {
+    await this.manager.query(
+      `UPDATE school SET cityId = ?,name = ? WHERE id = ?`,
+      [school.cityId, school.name, school.id],
+    );
+  }
 }

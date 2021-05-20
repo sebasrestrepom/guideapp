@@ -11,4 +11,8 @@ export class CityService {
   getByDepartment(departmentId: number): Promise<City[]> {
     return this.cityRepository.getByDepartment(departmentId);
   }
+  saveCity(departmentId: number, code: number, name: string): Promise<City> {
+    const city = new City(undefined, departmentId, code, name);
+    return this.cityRepository.save(city);
+  }
 }

@@ -1,8 +1,21 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CityService } from 'src/city/service/CityService';
 
 class GetByDepartmentResponse {
   id: number;
+  departmentId: number;
+  code: number;
+  name: string;
+}
+
+class SaveCityResponse {
+  id: number;
+  departmentId: number;
+  code: number;
+  name: string;
+}
+
+class SaveCityRequest {
   departmentId: number;
   code: number;
   name: string;
@@ -30,5 +43,21 @@ export class CityController {
     });
 
     return response;
+  }
+
+  @Post('city/save-city')
+  async saveCity(@Body() request: SaveCityRequest): Promise<SaveCityResponse> {
+    const city = await this.cityService.saveCity(
+      request.departmentId,
+      request.code,
+      request.name,
+    );
+
+    return {
+      id: city.id,
+      departmentId: city.departmentId,
+      code: city.code,
+      name: city.name,
+    };
   }
 }

@@ -9,6 +9,11 @@ export class School {
     this._name = name;
   }
 
+  updateData(cityId: number, name: string) {
+    this._cityId = cityId;
+    this._name = name;
+  }
+
   get id(): number {
     return this._id;
   }

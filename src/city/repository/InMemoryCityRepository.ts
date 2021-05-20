@@ -2,6 +2,8 @@ import { City } from 'src/city/model/City';
 import { CityRepository } from './CityRepository';
 
 export class InMemoryCityRepository implements CityRepository {
+  private _database = new Map<string, City>();
+
   getByDepartment(departmentId: number): Promise<City[]> {
     const list: City[] = [];
 
@@ -12,5 +14,19 @@ export class InMemoryCityRepository implements CityRepository {
     });
 
     return Promise.resolve(response);
+  }
+
+  save(city: City): Promise<City> {
+    const newIndex = this._database.size + 1;
+    const newCity = new City(newIndex, city.departmentId, city.code, city.name);
+
+    this._database.set(`${newCity.id}`, newCity);
+    return Promise.resolve(newCity);
+  }
+
+  findById(cityId: number): Promise<City | undefined> {
+    const city = this._database.get(`${cityId}`);
+
+    return Promise.resolve(city);
   }
 }
