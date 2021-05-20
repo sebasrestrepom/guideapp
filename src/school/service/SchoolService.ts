@@ -32,11 +32,13 @@ export class SchoolService {
     if (school === undefined) {
       throw new Error('School not found');
     }
-    const city = await this.cityRepository.findById(cityId);
+
+    const city = await this.cityRepository.findById(school.cityId);
+
     if (city === undefined) {
       throw new Error('City not found');
     }
     school.updateData(cityId, name);
-    return this.schoolRepository.update(school);
+    this.schoolRepository.update(school);
   }
 }
