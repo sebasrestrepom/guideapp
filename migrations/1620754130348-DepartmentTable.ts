@@ -3,15 +3,14 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class DepartmentTable1620754130348 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE department ( id bigint(20) NOT NULL, name varchar(255) NOT NULL, code int(20) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
+      `CREATE TABLE department (id SERIAL PRIMARY KEY, name varchar(255) NOT NULL, code int NOT NULL)`,
     );
-    await queryRunner.query(`ALTER TABLE department ADD PRIMARY KEY (id);`);
     await queryRunner.query(
-      `ALTER TABLE department MODIFY id bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;`,
+      `ALTER SEQUENCE department_id_seq RESTART WITH 34`,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE department`);
+    await queryRunner.query(`DROP TABLE department CASCADE`);
   }
 }

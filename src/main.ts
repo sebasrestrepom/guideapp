@@ -17,7 +17,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, options);
 
-  SwaggerModule.setup('api/docs', app, document, {
+  SwaggerModule.setup('swagger', app, document, {
     explorer: true,
     swaggerOptions: {
       filter: true,
