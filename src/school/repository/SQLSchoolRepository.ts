@@ -8,7 +8,7 @@ export class SQLSchoolRepository implements SchoolRepository {
 
   async findById(schoolId: number): Promise<School> {
     const rows = await this.manager.query(
-      `SELECT id,cityId, name FROM school WHERE id=?`,
+      `SELECT id,cityId, name FROM school WHERE id=$1`,
       [schoolId],
     );
 
@@ -22,7 +22,7 @@ export class SQLSchoolRepository implements SchoolRepository {
 
   async save(school: School): Promise<School> {
     const result = await this.manager.query(
-      `INSERT INTO school (cityId,name) VALUES (?,?)`,
+      `INSERT INTO school (cityId,name) VALUES ($1,$2)`,
       [school.cityId, school.name],
     );
     const newSchool = new School(result.insertId, school.cityId, school.name);
@@ -30,12 +30,12 @@ export class SQLSchoolRepository implements SchoolRepository {
   }
 
   async delete(schoolId: number): Promise<void> {
-    await this.manager.query(`DELETE FROM school WHERE id = ?`, [schoolId]);
+    await this.manager.query(`DELETE FROM school WHERE id = $1`, [schoolId]);
   }
 
   async getByCity(cityId: number): Promise<School[]> {
     const rows = await this.manager.query(
-      `SELECT id,cityId, name FROM school WHERE cityId=?`,
+      `SELECT id,cityId, name FROM school WHERE cityId=$1`,
       [cityId],
     );
 
@@ -45,7 +45,7 @@ export class SQLSchoolRepository implements SchoolRepository {
 
   async update(school: School): Promise<void> {
     await this.manager.query(
-      `UPDATE school SET cityId = ?,name = ? WHERE id = ?`,
+      `UPDATE school SET cityId = $1,name = $2 WHERE id = $3`,
       [school.cityId, school.name, school.id],
     );
   }
