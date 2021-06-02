@@ -7,8 +7,6 @@ export class StudentTable1622044419373 implements MigrationInterface {
           id SERIAL PRIMARY KEY,schoolId bigint NOT NULL,name varchar(255) NOT NULL, lastName varchar(255) NOT NULL, email varchar(255) NOT NULL, password varchar(255) NOT NULL)
       `);
 
-    await queryRunner.query(`ALTER SEQUENCE student_id_seq RESTART WITH 1`);
-
     await queryRunner.query(`ALTER TABLE student
           ADD CONSTRAINT student_school_fk_01 FOREIGN KEY (schoolId) REFERENCES school (id)
         `);
@@ -21,9 +19,7 @@ export class StudentTable1622044419373 implements MigrationInterface {
       `CREATE INDEX student_idx_01 ON student (schoolId)`,
     );
 
-    await queryRunner.query(
-      `CREATE INDEX student_idx_02 ON student (email)`,
-    );
+    await queryRunner.query(`CREATE INDEX student_idx_02 ON student (email)`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
