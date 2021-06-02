@@ -28,4 +28,10 @@ export class InMemoryStudentRepository implements StudentRepository {
     }
     return Promise.resolve(students[0]);
   }
+
+  findById(studentId: number): Promise<Student | undefined> {
+    const student = this._database.get(`${studentId}`);
+
+    return Promise.resolve(student);
+  }
 }
