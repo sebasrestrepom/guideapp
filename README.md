@@ -40,22 +40,25 @@ The following diagram represents the entity relationship model designed for the 
 
 For the installations you need to first haved install Docker, clone the repository and finally you need to install the npm packages
 
+```bash
 #Clone repository
 $ git clone https://github.com/sebasrestrepomo/guideapp.git
 
 #install npm packages
 $ npm install
 
-````
+```
 
 # Migrations
 
 To give a better versioning to the database, use migrations. To execute them you must enter the following command
 
 ```bash
+
 #Runing the migrations
 $ npm run migration:run
 
+```
 
 # Running the app
 
@@ -72,29 +75,9 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
-# Environment Variables
-This API needs for its operation that we declare the following environment variables
-
-#USERNAME
-DATABASE_USERNAME=DATABASE_USERNAME
-
-#PASSWORD
-DATABASE_PASSWORD=DATABASE_PASSWORD
-
-#HOST
-DATABASE_HOST=DATABASE_HOST
-
-#PORTS
-DATABASE_PORT=DATABASE_PORT
-
-#DATABASE NAME
-DATABASE_NAME=DATABASE_NAME
-
-
-
+```
 
 # Environment Variables
-
 This API needs for its operation that we declare the following environment variables
 
 ```bash
@@ -114,7 +97,7 @@ DATABASE_PORT=DATABASE_PORT
 #DATABASE NAME
 DATABASE_NAME=DATABASE_NAME
 
-````
+```
 
 # API Docs
 
@@ -124,6 +107,8 @@ For more information about methods present on this API visit:
 
 # copy this url in your browser
 http://localhost:3000/swagger/
+
+```
 
 
 ### In the following image we will see a screenshot of the methods that we will find in Swagger
@@ -142,12 +127,14 @@ http://localhost:3000/swagger/
 
 You can test all the methods contained in this API, for this you must run the following command
 
+```bash
 
 # e2e tests
 $ npm run test:e2e
 
+```
 
 ## 🐞 Did you find some issue o improvment?
 
 Feel free to contribute and do whatever to consider better to this project.
-```
+
