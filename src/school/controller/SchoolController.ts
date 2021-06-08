@@ -7,6 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber } from 'class-validator';
 import { SchoolService } from 'src/school/service/SchoolService';
 
@@ -25,24 +26,30 @@ class SaveSchoolResponse {
 class SaveSchoolRequest {
   @IsNotEmpty()
   @IsNumber()
+  @ApiProperty()
   cityId: number;
   @IsNotEmpty()
+  @ApiProperty()
   name: string;
 }
 
 class UpdateSchoolRequest {
   @IsNotEmpty()
   @IsNumber()
+  @ApiProperty()
   cityId: number;
   @IsNotEmpty()
+  @ApiProperty()
   name: string;
 }
 
+@ApiTags('School')
 @Controller()
 export class SchoolController {
   constructor(private schoolService: SchoolService) {}
 
   @Post('school/save-school')
+  @ApiOperation({ summary: 'Creation of a new school' })
   async saveSchool(
     @Body() request: SaveSchoolRequest,
   ): Promise<SaveSchoolResponse> {
@@ -59,11 +66,13 @@ export class SchoolController {
   }
 
   @Delete('school/delete-school/:id')
+  @ApiOperation({ summary: 'Delete a school by its id' })
   async deleteSchool(@Param('id') id: number): Promise<void> {
     await this.schoolService.deleteSchool(id);
   }
 
   @Get('school/get-by-city/:cityId')
+  @ApiOperation({ summary: 'List of schools by city' })
   async getByCity(
     @Param('cityId') cityId: string,
   ): Promise<GetByCityResponse[]> {
@@ -81,6 +90,7 @@ export class SchoolController {
   }
 
   @Put('school/update-school/:id')
+  @ApiOperation({ summary: 'Update data of a school' })
   async updateSchool(
     @Param('id') id: number,
     @Body() request: UpdateSchoolRequest,

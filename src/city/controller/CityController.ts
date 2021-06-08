@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { IsNotEmpty, IsNumber } from 'class-validator';
 import { CityService } from 'src/city/service/CityService';
+import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 
 class GetByDepartmentResponse {
   id: number;
@@ -19,19 +20,32 @@ class SaveCityResponse {
 class SaveCityRequest {
   @IsNotEmpty()
   @IsNumber()
+  @ApiProperty()
   departmentId: number;
   @IsNotEmpty()
   @IsNumber()
+  @ApiProperty()
   code: number;
   @IsNotEmpty()
+  @ApiProperty()
   name: string;
 }
 
+@ApiTags('City')
 @Controller()
 export class CityController {
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  age: number;
+
+  @ApiProperty()
+  breed: string;
   constructor(private cityService: CityService) {}
 
   @Get('city/get-by-department/:departmentId')
+  @ApiOperation({ summary: 'List of cities that are in a given department' })
   async getByDepartment(
     @Param('departmentId') departmentId: string,
   ): Promise<GetByDepartmentResponse[]> {
@@ -52,6 +66,7 @@ export class CityController {
   }
 
   @Post('city/save-city')
+  @ApiOperation({ summary: 'Creation of a new city' })
   async saveCity(@Body() request: SaveCityRequest): Promise<SaveCityResponse> {
     const city = await this.cityService.saveCity(
       request.departmentId,
