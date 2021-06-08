@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { DepartmentController } from 'src/department/controller/DepartmentController';
-import { InMemoryDepartmentRepository } from 'src/department/repository/InMemoryDepartmentRepository';
-import { DepartmentService } from 'src/department/service/DeparmentService';
+import { GetAllDepartmentController } from 'src/http/controller/department/get-all-department/GetAllDepartmentController';
+import { InMemoryDepartmentRepository } from 'src/core/infrastructure/department/InMemoryDepartmentRepository';
+import { GetAllDepartment } from 'src/core/use_cases/department/GetAllDepartment';
 
 describe('DepartmentController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      controllers: [DepartmentController],
+      controllers: [GetAllDepartmentController],
       providers: [
         {
           provide: 'DepartmentRepository',
           useClass: InMemoryDepartmentRepository,
         },
-        DepartmentService,
+        GetAllDepartment,
       ],
     }).compile();
 
