@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { InMemorySchoolRepository } from 'src/school/repository/InMemorySchoolRepository';
-import { SchoolRepository } from 'src/school/repository/SchoolRepository';
-import { School } from 'src/school/model/School';
-import { StudentRepository } from 'src/student/repository/StudentRepository';
-import { InMemoryStudentRepository } from 'src/student/repository/InMemoryStudentRepository';
-import { StudentController } from 'src/student/controller/StudentController';
-import { StudentService } from 'src/student/service/StudentService';
-import { Student } from 'src/student/model/Student';
+import { InMemorySchoolRepository } from 'src/core/infrastructure/school/InMemorySchoolRepository';
+import { SchoolRepository } from 'src/core/domain/school/SchoolRepository';
+import { School } from 'src/core/domain/school/School';
+import { StudentRepository } from 'src/core/domain/student/StudentRepository';
+import { InMemoryStudentRepository } from 'src/core/infrastructure/student/InMemoryStudentRepository';
+import { SaveANewStudentController } from 'src/http/controller/student/save-a-new-student/SaveANewStudentController';
+import { SaveANewStudent } from 'src/core/use_cases/student/SaveANewStudent';
+import { Student } from 'src/core/domain/student/Student';
 
 describe('StudentController (e2e)', () => {
   let app: INestApplication;
@@ -20,7 +20,7 @@ describe('StudentController (e2e)', () => {
     schoolRepository = new InMemorySchoolRepository();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      controllers: [StudentController],
+      controllers: [SaveANewStudentController],
       providers: [
         {
           provide: 'StudentRepository',
@@ -30,7 +30,7 @@ describe('StudentController (e2e)', () => {
           provide: 'SchoolRepository',
           useValue: schoolRepository,
         },
-        StudentService,
+        SaveANewStudent,
       ],
     }).compile();
 

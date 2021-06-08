@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { QuestionController } from 'src/question/controller/QuestionController';
-import { InMemoryQuestionRepository } from 'src/question/repository/InMemoryQuestionRepository';
-import { QuestionService } from 'src/question/service/QuestionService';
+import { GetAllQuestionController } from 'src/http/controller/question/get-all-question/GetAllQuestionController';
+import { InMemoryQuestionRepository } from 'src/core/infrastructure/question/InMemoryQuestionRepository';
+import { GetAllQuestion } from 'src/core/use_cases/question/GetAllQuestion';
 
 describe('QuestionController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      controllers: [QuestionController],
+      controllers: [GetAllQuestionController],
       providers: [
         {
           provide: 'QuestionRepository',
           useClass: InMemoryQuestionRepository,
         },
-        QuestionService,
+        GetAllQuestion,
       ],
     }).compile();
 

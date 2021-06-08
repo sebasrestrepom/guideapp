@@ -1,22 +1,25 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { CityController } from 'src/city/controller/CityController';
-import { InMemoryCityRepository } from 'src/city/repository/InMemoryCityRepository';
-import { CityService } from 'src/city/service/CityService';
+import { GetCityByDepartmentController } from 'src/http/controller/city/get-city-by-department/GetCityByDepartmentController';
+import { SaveANewCityController } from 'src/http/controller/city/save-a-new-city/SaveANewCityController';
+import { InMemoryCityRepository } from 'src/core/infrastructure/city/InMemoryCityRepository';
+import { SaveANewCity } from 'src/core/use_cases/city/SaveANewCity';
+import { GetCityByDepartment } from 'src/core/use_cases/city/GetCityByDepartment';
 
 describe('CityController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      controllers: [CityController],
+      controllers: [GetCityByDepartmentController, SaveANewCityController],
       providers: [
         {
           provide: 'CityRepository',
           useClass: InMemoryCityRepository,
         },
-        CityService,
+        SaveANewCity,
+        GetCityByDepartment,
       ],
     }).compile();
 

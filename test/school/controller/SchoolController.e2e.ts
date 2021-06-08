@@ -1,14 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { SchoolController } from 'src/school/controller/SchoolController';
-import { InMemorySchoolRepository } from 'src/school/repository/InMemorySchoolRepository';
-import { SchoolService } from 'src/school/service/SchoolService';
-import { SchoolRepository } from 'src/school/repository/SchoolRepository';
-import { School } from 'src/school/model/School';
-import { InMemoryCityRepository } from 'src/city/repository/InMemoryCityRepository';
-import { City } from 'src/city/model/City';
-import { CityRepository } from 'src/city/repository/CityRepository';
+import { DeleteSchoolController } from 'src/http/controller/school/delete-school/DeleteSchoolController';
+import { GetSchoolByCityController } from 'src/http/controller/school/get-school-by-city/GetSchoolByCityController';
+import { SaveANewSchoolController } from 'src/http/controller/school/save-a-new-school/SaveANewSchoolController';
+import { UpdateDataSchoolController } from 'src/http/controller/school/update-data-school/UpdateDataSchoolController';
+import { InMemorySchoolRepository } from 'src/core/infrastructure/school/InMemorySchoolRepository';
+import { DeleteSchool } from 'src/core/use_cases/school/DeleteSchool';
+import { GetSchoolByCity } from 'src/core/use_cases/school/GetSchoolByCity';
+import { SaveANewSchool } from 'src/core/use_cases/school/SaveANewSchool';
+import { UpdateDataSchool } from 'src/core/use_cases/school/UpdateDataSchool';
+import { SchoolRepository } from 'src/core/domain/school/SchoolRepository';
+import { School } from 'src/core/domain/school/School';
+import { InMemoryCityRepository } from 'src/core/infrastructure/city/InMemoryCityRepository';
+import { City } from 'src/core/domain/city/City';
+import { CityRepository } from 'src/core/domain/city/CityRepository';
 
 describe('SchoolController (e2e)', () => {
   let app: INestApplication;
@@ -20,7 +26,12 @@ describe('SchoolController (e2e)', () => {
     cityRepository = new InMemoryCityRepository();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      controllers: [SchoolController],
+      controllers: [
+        DeleteSchoolController,
+        GetSchoolByCityController,
+        SaveANewSchoolController,
+        UpdateDataSchoolController,
+      ],
       providers: [
         {
           provide: 'SchoolRepository',
@@ -30,7 +41,10 @@ describe('SchoolController (e2e)', () => {
           provide: 'CityRepository',
           useValue: cityRepository,
         },
-        SchoolService,
+        DeleteSchool,
+        GetSchoolByCity,
+        SaveANewSchool,
+        UpdateDataSchool,
       ],
     }).compile();
 
