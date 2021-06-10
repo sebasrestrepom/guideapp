@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { GetAllDepartment } from 'src/core/use_cases/department/GetAllDepartment';
 import { GetAllDepartmentResponse } from './GetAllDepartmentResponse';
 
@@ -7,6 +8,7 @@ export class GetAllDepartmentController {
   constructor(private getAllDepartment: GetAllDepartment) {}
 
   @Get('department/get-all')
+  @ApiOperation({ summary: 'List of cities that are in a given department' })
   async handle(): Promise<GetAllDepartmentResponse[]> {
     const departments = await this.getAllDepartment.execute();
 
