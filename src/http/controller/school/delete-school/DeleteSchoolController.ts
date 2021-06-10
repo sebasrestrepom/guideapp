@@ -1,7 +1,8 @@
 import { Controller, Delete, Param } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { DeleteSchool } from 'src/core/use_cases/school/DeleteSchool';
 
+@ApiTags('School')
 @Controller()
 export class DeleteSchoolController {
   constructor(private deleteSchool: DeleteSchool) {}

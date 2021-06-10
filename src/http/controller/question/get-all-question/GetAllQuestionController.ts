@@ -1,8 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GetAllQuestion } from 'src/core/use_cases/question/GetAllQuestion';
 import { GetAllQuestionResponse } from './GetAllQuestionResponse';
 
+@ApiTags('Question')
 @Controller()
 export class GetAllQuestionController {
   constructor(private getAllQuestion: GetAllQuestion) {}

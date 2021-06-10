@@ -1,9 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SaveANewStudent } from 'src/core/use_cases/student/SaveANewStudent';
 import { SaveANewStudentRequest } from './SaveANewStudentRequest';
 import { SaveANewStudentResponse } from './SaveANewStudentResponse';
 
+@ApiTags('Student')
 @Controller()
 export class SaveANewStudentController {
   constructor(private saveANewStudent: SaveANewStudent) {}

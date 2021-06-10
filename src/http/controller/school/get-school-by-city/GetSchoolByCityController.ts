@@ -1,8 +1,9 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GetSchoolByCity } from 'src/core/use_cases/school/GetSchoolByCity';
 import { GetSchoolByCityResponse } from './GetSchoolByCityResponse';
 
+@ApiTags('School')
 @Controller()
 export class GetSchoolByCityController {
   constructor(private getSchoolByCity: GetSchoolByCity) {}
