@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { GetAllQuestion } from 'src/core/use_cases/question/GetAllQuestion';
 import { GetAllQuestionResponse } from './GetAllQuestionResponse';
 
@@ -7,6 +8,7 @@ export class GetAllQuestionController {
   constructor(private getAllQuestion: GetAllQuestion) {}
 
   @Get('question/get-all')
+  @ApiOperation({ summary: 'List of all vocational test questions' })
   async handle(): Promise<GetAllQuestionResponse[]> {
     const questions = await this.getAllQuestion.execute();
 

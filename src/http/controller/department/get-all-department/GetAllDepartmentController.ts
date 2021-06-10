@@ -8,7 +8,7 @@ export class GetAllDepartmentController {
   constructor(private getAllDepartment: GetAllDepartment) {}
 
   @Get('department/get-all')
-  @ApiOperation({ summary: 'List of cities that are in a given department' })
+  @ApiOperation({ summary: 'List of all departments of Colombia' })
   async handle(): Promise<GetAllDepartmentResponse[]> {
     const departments = await this.getAllDepartment.execute();
 

@@ -1,4 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { SaveANewCity } from 'src/core/use_cases/city/SaveANewCity';
 import { SaveANewCityRequest } from './SaveANewCityRequest';
 import { SaveANewCityResponse } from './SaveANewCityResponse';
@@ -8,6 +9,7 @@ export class SaveANewCityController {
   constructor(private saveANewCity: SaveANewCity) {}
 
   @Post('city/save-city')
+  @ApiOperation({ summary: 'Creation of a new city' })
   async handle(
     @Body() request: SaveANewCityRequest,
   ): Promise<SaveANewCityResponse> {

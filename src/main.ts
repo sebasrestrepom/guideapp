@@ -12,15 +12,12 @@ async function bootstrap() {
     .setTitle('GuideApp')
     .setDescription('Test vocacional')
     .setVersion('1.0')
-    .addTag('Vocational test')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
 
-  SwaggerModule.setup('swagger', app, document, {
-    explorer: true,
+  SwaggerModule.setup('docs', app, document, {
     swaggerOptions: {
-      filter: true,
       showRequestDuration: true,
     },
   });
