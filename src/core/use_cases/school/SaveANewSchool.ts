@@ -21,7 +21,9 @@ export class SaveANewSchool {
 
   private async ensureCityExists(cityId: number) {
     const city = await this.cityRepository.findById(cityId);
+    console.log('city', city);
     if (city === undefined) {
+      console.log('megaerror');
       throw new CityNotFound();
     }
   }

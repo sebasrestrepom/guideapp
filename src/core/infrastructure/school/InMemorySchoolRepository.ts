@@ -4,9 +4,11 @@ import { SchoolRepository } from 'src/core/domain/school/SchoolRepository';
 export class InMemorySchoolRepository implements SchoolRepository {
   private _database = new Map<string, School>();
 
-  update(school: School): Promise<void> {
-    this._database.set(`${school.id}`, school);
-    return Promise.resolve();
+  update(school: School): Promise<School> {
+    console.log(school);
+     this._database.set(`${school.id}`, school);
+   
+    return Promise.resolve(school);
   }
 
   delete(schoolId: number): Promise<void> {
@@ -16,14 +18,20 @@ export class InMemorySchoolRepository implements SchoolRepository {
 
   findById(schoolId: number): Promise<School> {
     const school = this._database.get(`${schoolId}`);
-
+    
     return Promise.resolve(school);
   }
 
   save(school: School): Promise<School> {
-    const newIndex = this._database.size + 1;
-    const newSchool = new School(newIndex, school.cityId, school.name);
+    let newIndex;
+    if (school.id === undefined) {
+      newIndex = this._database.size + 1;
+    } else {
+      newIndex = school.id;
+    }
 
+    const newSchool = new School(newIndex, school.cityId, school.name);
+ 
     this._database.set(`${newSchool.id}`, newSchool);
 
     return Promise.resolve(newSchool);

@@ -17,7 +17,13 @@ export class InMemoryCityRepository implements CityRepository {
   }
 
   save(city: City): Promise<City> {
-    const newIndex = this._database.size + 1;
+    let newIndex;
+    if (city.id === undefined) {
+      newIndex = this._database.size + 1;
+    } else {
+      newIndex = city.id;
+    }
+  
     const newCity = new City(newIndex, city.departmentId, city.code, city.name);
 
     this._database.set(`${newCity.id}`, newCity);

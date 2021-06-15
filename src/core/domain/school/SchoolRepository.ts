@@ -5,5 +5,5 @@ export interface SchoolRepository {
   save(school: School): Promise<School>;
   delete(schoolId: number): Promise<void>;
   findById(schoolId: number): Promise<School>;
-  update(school: School): Promise<void>;
+  update(school: School): Promise<School>;
 }
