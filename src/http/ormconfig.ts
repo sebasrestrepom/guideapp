@@ -14,6 +14,10 @@ const config: ConnectionOptions = {
   cli: {
     migrationsDir: './migrations',
   },
+  ssl:
+  process.env.NODE_ENV === 'production'
+    ? { rejectUnauthorized: false }
+    : false,
 };
 
 export = config;
