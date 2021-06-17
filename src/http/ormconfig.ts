@@ -15,9 +15,9 @@ const config: ConnectionOptions = {
     migrationsDir: './migrations',
   },
   ssl:
-  process.env.NODE_ENV === 'production'
-    ? { rejectUnauthorized: false }
-    : false,
+    process.env.NODE_ENV === 'production'
+      ? { rejectUnauthorized: false }
+      : false,
 };
 
 export = config;
