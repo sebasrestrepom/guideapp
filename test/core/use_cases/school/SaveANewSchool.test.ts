@@ -13,10 +13,9 @@ describe('SaveANewSchool should', () => {
     let schoolRepository: SchoolRepository;
     let cityRepository: CityRepository;
     let school: School;
-    let error;
     let executor: () => void;
 
-    test.skip('save a new school', async () => {
+    test('save a new school', async () => {
         const cityId = 1;
         const name = 'Gabo';
 
@@ -28,7 +27,6 @@ describe('SaveANewSchool should', () => {
         then_the_school_has_this_information(cityId, name);
     });
 
-
     test('throw an error when city does not exists', async () => {
         const cityId = 13;
         const name = 'Gabo';
@@ -37,8 +35,7 @@ describe('SaveANewSchool should', () => {
 
         await when_save_the_school_with_this_data_and_throw_error(cityId, name);
 
-        expect(executor()).rejects.toThrow(CityNotFound);
-        //expect(error).toBeInstanceOf(CityNotFound);
+        await then_the_action_throw_this_error(CityNotFound);
     });
 
     function given_a_save_a_new_school_use_case() {
@@ -56,15 +53,6 @@ describe('SaveANewSchool should', () => {
     }
 
     async function when_save_the_school_with_this_data_and_throw_error(cityId: number, name: string) {
-        /*try {
-            console.log('yyyyyyyy');
-            
-            console.log('xxxxxxx');
-        } catch(e) {
-            console.log('error', e);
-            error = e
-        }*/
-
         executor = async () => {
             await saveANewSchool.execute(cityId, name);
         }
@@ -75,5 +63,9 @@ describe('SaveANewSchool should', () => {
         expect(school).not.toBeUndefined();
         expect(school.cityId).toBe(cityId);
         expect(school.name).toBe(name);
+    }
+
+    async function then_the_action_throw_this_error(error: any) {
+        await expect(executor()).rejects.toThrow(error);
     }
 });

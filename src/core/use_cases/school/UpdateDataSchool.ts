@@ -14,17 +14,16 @@ export class UpdateDataSchool {
 
   async execute(id: number, cityId: number, name: string): Promise<School> {
     const school = await this.schoolRepository.findById(id);
-    console.log(school)
     if (school === undefined) {
       throw new SchoolNotFound();
     }
 
     const city = await this.cityRepository.findById(school.cityId);
-    console.log(city);
-/*
+
     if (city === undefined) {
       throw new CityNotFound();
-    }*/
+    }
+    
     school.updateData(cityId, name);
     const updateSchool = this.schoolRepository.update(school);
     return Promise.resolve(updateSchool);
