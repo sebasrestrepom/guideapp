@@ -29,8 +29,8 @@ export class SQLSchoolRepository implements SchoolRepository {
     return newSchool;
   }
 
-  async delete(schoolId: number): Promise<void> {
-    await this.manager.query(`DELETE FROM school WHERE id = $1`, [schoolId]);
+  async delete(schoolId: number): Promise<School> {
+    return await this.manager.query(`DELETE FROM school WHERE id = $1`, [schoolId]);
   }
 
   async getByCity(cityId: number): Promise<School[]> {
@@ -43,10 +43,10 @@ export class SQLSchoolRepository implements SchoolRepository {
     return result;
   }
 
-  async update(school: School): Promise<void> {
-    await this.manager.query(
+  async update(school: School): Promise<School> {
+    return await this.manager.query(
       `UPDATE school SET cityId = $1,name = $2 WHERE id = $3`,
-      [school.cityId, school.name, school.id],
+      [school.cityId, school.name, school.id]
     );
   }
 }

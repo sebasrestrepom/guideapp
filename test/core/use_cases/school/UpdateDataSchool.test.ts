@@ -35,7 +35,7 @@ describe('UpdateDataSchool should', () => {
     let cityRepository: CityRepository;
     let school: School;
 
-    test.skip('update data school', async () => {
+    test('update data school', async () => {
         const school = SchoolMother.createAnSchool();
 
         given_a_update_data_of_school_use_case();
@@ -55,7 +55,7 @@ describe('UpdateDataSchool should', () => {
         }).rejects.toThrow(SchoolNotFound)
     });
 
-    test.skip('throw an error when city does not exists', async () => {
+    test('throw an error when city does not exists', async () => {
         const school = SchoolMother.createAnSchool();
 
         given_a_update_data_of_school_use_case();

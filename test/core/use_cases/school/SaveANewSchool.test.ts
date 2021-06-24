@@ -22,7 +22,7 @@ describe('SaveANewSchool should', () => {
         given_a_save_a_new_school_use_case();
         await and_a_city_with_this_cityId(cityId);
       
-        await when_save_the_school_with_this_data(cityId, name);
+        await when_ (cityId, name);
         
         then_the_school_has_this_information(cityId, name);
     });
