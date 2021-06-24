@@ -10,13 +10,21 @@ export class SQLResultRepository implements ResultRepository {
   constructor(@InjectEntityManager() private manager: EntityManager) {}
 
   async save(result: Result): Promise<Result> {
-    const sentence = await this.manager.query(
-      `INSERT INTO result (studentId) VALUES ($1)`,
-      [result.studentId],
-    );
+    return await this.manager.transaction(async txEntityManager => {
+      const {insertId: resultId} = await txEntityManager.query(
+        `INSERT INTO result (studentId) VALUES ($1)`,
+        [result.studentId],
+      );
+      
+      result.details.forEach((detail) => {
+        const {insertId} = await txEntityManager.query(
+          `INSERT INTO result_detail (resultId, questionId, value) VALUES ($1, $2, $3)`,
+          [resultId, detail.questionId, detail.value ],
+        );
+      });
 
-    const newResult = new Result(sentence.insertId, result.studentId);
-    return newResult;
+      return this.findById(insertId);
+    });
   }
 
   async findById(resultId: number): Promise<Result | undefined> {
@@ -32,24 +40,5 @@ export class SQLResultRepository implements ResultRepository {
     const result = new Result(rows[0].id, rows[0].resultId);
 
     return result;
-  }
-}
-
-export class SQLResultDetailRepository implements ResultDetailRepository {
-  constructor(@InjectEntityManager() private manager: EntityManager) {}
-
-  async save(result: ResultDetail): Promise<ResultDetail> {
-    const sentence = await this.manager.query(
-      `INSERT INTO resultDetail (resultId, questionId, value) VALUES ($1,$2,$3)`,
-      [result.resultId, result.questionId, result.value],
-    );
-
-    const newResult = new ResultDetail(
-      sentence.insertId,
-      result.resultId,
-      result.questionId,
-      result.value,
-    );
-    return newResult;
   }
 }

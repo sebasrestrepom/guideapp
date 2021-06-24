@@ -1,5 +1,8 @@
-import { Result ,ResultDetail } from 'src/core/domain/result/Result';
-import { ResultRepository ,ResultDetailRepository } from 'src/core/domain/result/ResultRepository';
+import { Result, ResultDetail } from 'src/core/domain/result/Result';
+import {
+  ResultRepository,
+  ResultDetailRepository,
+} from 'src/core/domain/result/ResultRepository';
 
 export class InMemoryResultDetailRepository implements ResultDetailRepository {
   private _database = new Map<string, ResultDetail>();

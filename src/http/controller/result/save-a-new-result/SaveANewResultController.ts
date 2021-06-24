@@ -1,6 +1,12 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { SaveResultResponse, SaveResultDetailResponse } from './SaveANewResultResponse';
-import { SaveResultRequest, SaveResultDetailRequest } from './SaveANewResultRequest';
+import {
+  SaveResultResponse,
+  SaveResultDetailResponse,
+} from './SaveANewResultResponse';
+import {
+  SaveResultRequest,
+  SaveResultDetailRequest,
+} from './SaveANewResultRequest';
 import { SaveANewResult } from 'src/core/use_cases/result/SaveANewResult';
 import { ResultDetailService } from 'src/core/use_cases/result/SaveANewResult';
 
@@ -12,25 +18,13 @@ export class ResultController {
   async handle(
     @Body() request: SaveResultRequest,
   ): Promise<SaveResultResponse> {
-    const result = await this.saveANewResult.execute(request.studentId);
+    const result = await this.saveANewResult.execute(
+      request.studentId,
+      request.detail
+      );
     return {
       id: result.id,
       studentId: result.studentId,
     };
-
-        const result = await this.saveANewResult.execute(
-          request.resultId,
-          request.questionId,
-          request.value,
-        );
-        return {
-          id: result.id,
-          resultId: result.resultId,
-          questionId: result.questionId,
-          value: result.value,
-        };
   }
 }
-
-
-
