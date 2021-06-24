@@ -8,7 +8,7 @@ import { UpdateDataSchoolRequest } from './UpdateDataSchoolRequest';
 export class UpdateDataSchoolController {
   constructor(private updateDataSchool: UpdateDataSchool) {}
 
-  @Put('school/update-school/:id')
+  @Put('api/school/update-school/:id')
   @ApiOperation({ summary: 'Update data of a school' })
   async handle(
     @Param('id') id: number,

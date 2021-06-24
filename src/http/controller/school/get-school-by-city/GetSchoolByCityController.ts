@@ -8,7 +8,7 @@ import { GetSchoolByCityResponse } from './GetSchoolByCityResponse';
 export class GetSchoolByCityController {
   constructor(private getSchoolByCity: GetSchoolByCity) {}
 
-  @Get('school/get-by-city/:cityId')
+  @Get('api/school/get-by-city/:cityId')
   @ApiOperation({ summary: 'List of schools by city' })
   async handle(
     @Param('cityId') cityId: string,

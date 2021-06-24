@@ -8,7 +8,7 @@ import { GetCityByDepartmentResponse } from './GetCityByDepartmentResponse';
 export class GetCityByDepartmentController {
   constructor(private cityService: GetCityByDepartment) {}
 
-  @Get('city/get-by-department/:departmentId')
+  @Get('api/city/get-by-department/:departmentId')
   @ApiOperation({ summary: 'List of cities that are in a given department' })
   async handle(
     @Param('departmentId') departmentId: string,

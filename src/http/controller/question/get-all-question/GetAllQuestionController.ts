@@ -8,7 +8,7 @@ import { GetAllQuestionResponse } from './GetAllQuestionResponse';
 export class GetAllQuestionController {
   constructor(private getAllQuestion: GetAllQuestion) {}
 
-  @Get('question/get-all')
+  @Get('api/question/get-all')
   @ApiOperation({ summary: 'List of all vocational test questions' })
   async handle(): Promise<GetAllQuestionResponse[]> {
     const questions = await this.getAllQuestion.execute();
