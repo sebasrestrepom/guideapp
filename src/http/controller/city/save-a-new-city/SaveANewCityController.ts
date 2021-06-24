@@ -9,7 +9,7 @@ import { SaveANewCityResponse } from './SaveANewCityResponse';
 export class SaveANewCityController {
   constructor(private saveANewCity: SaveANewCity) {}
 
-  @Post('city/save-city')
+  @Post('api/city/save-city')
   @ApiOperation({ summary: 'Creation of a new city' })
   async handle(
     @Body() request: SaveANewCityRequest,

@@ -9,7 +9,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 export class SaveANewSchoolController {
   constructor(private saveANewSchool: SaveANewSchool) {}
 
-  @Post('school/save-school')
+  @Post('api/school/save-school')
   @ApiOperation({ summary: 'Creation of a new school' })
   async handle(
     @Body() request: SaveANewSchoolRequest,

@@ -9,7 +9,7 @@ import { SaveANewStudentResponse } from './SaveANewStudentResponse';
 export class SaveANewStudentController {
   constructor(private saveANewStudent: SaveANewStudent) {}
 
-  @Post('student/new-student')
+  @Post('api/student/new-student')
   @ApiOperation({ summary: 'Creation of a new student' })
   async handle(
     @Body() request: SaveANewStudentRequest,
