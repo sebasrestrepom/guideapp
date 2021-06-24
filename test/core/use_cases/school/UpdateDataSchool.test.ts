@@ -7,7 +7,7 @@ import { SchoolRepository } from "src/core/domain/school/SchoolRepository";
 import { InMemoryCityRepository } from "src/core/infrastructure/city/InMemoryCityRepository";
 import { InMemorySchoolRepository } from "src/core/infrastructure/school/InMemorySchoolRepository";
 import { UpdateDataSchool } from "src/core/use_cases/school/UpdateDataSchool";
-import { SchoolMother } from "test/core/domain/SchoolMother";
+import { SchoolMother } from "test/core/domain/school/SchoolMother";
 
 /* 
 1 Given -- tienes que poner el sistem en el estado
