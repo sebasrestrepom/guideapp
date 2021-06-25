@@ -21,9 +21,7 @@ export class StudentTable1622044419373 implements MigrationInterface {
       `CREATE INDEX student_idx_01 ON student (schoolId)`,
     );
 
-    await queryRunner.query(
-      `CREATE INDEX student_idx_02 ON student (email)`,
-    );
+    await queryRunner.query(`CREATE INDEX student_idx_02 ON student (email)`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

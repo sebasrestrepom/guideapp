@@ -1,6 +1,7 @@
 export class SaveResultResponse {
   id: number;
   studentId: number;
+  detail: SaveResultDetailResponse[];
 }
 
 export class SaveResultDetailResponse {

@@ -15,9 +15,9 @@ export class Result {
     return new Result(undefined, studentId, []);
   }
 
-  addNewDetail(questionId: number, value: string) {
+  addNewDetail(resultId: number, questionId: number, value: string) {
     this._details.push(
-      new ResultDetails(undefined, undefined, questionId, value),
+      new ResultDetail(undefined, resultId, questionId, value),
     );
   }
 

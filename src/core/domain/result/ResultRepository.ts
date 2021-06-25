@@ -1,4 +1,5 @@
-import { Result, ResultDetail } from './Result';
+import { Result } from './Result';
+import { ResultDetail } from './ResultDetail';
 
 export interface ResultRepository {
   save(result: Result): Promise<Result>;

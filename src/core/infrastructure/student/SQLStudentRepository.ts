@@ -49,4 +49,25 @@ export class SQLStudentRepository implements StudentRepository {
     );
     return result;
   }
+
+  async findById(studentId: number): Promise<Student> {
+    const rows = await this.manager.query(
+      `SELECT id, schoolId, name, lastName, email, password FROM student WHERE id=$1`,
+      [studentId],
+    );
+
+    if (rows == undefined || rows.length == 0) {
+      return undefined;
+    }
+
+    const result = new Student(
+      rows[0].id,
+      rows[0].schoolId,
+      rows[0].name,
+      rows[0].lastName,
+      rows[0].email,
+      rows[0].password,
+    );
+    return result;
+  }
 }

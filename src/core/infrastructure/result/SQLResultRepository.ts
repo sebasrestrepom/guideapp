@@ -1,29 +1,29 @@
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
-import { Result, ResultDetail } from 'src/core/domain/result/Result';
-import {
-  ResultDetailRepository,
-  ResultRepository,
-} from 'src/core/domain/result/ResultRepository';
+import { Result } from 'src/core/domain/result/Result';
+import { ResultRepository } from 'src/core/domain/result/ResultRepository';
 
 export class SQLResultRepository implements ResultRepository {
   constructor(@InjectEntityManager() private manager: EntityManager) {}
 
   async save(result: Result): Promise<Result> {
-    return await this.manager.transaction(async txEntityManager => {
-      const {insertId: resultId} = await txEntityManager.query(
+    return await this.manager.transaction(async (txEntityManager) => {
+      const {
+        insertId: resultId,
+      } = await txEntityManager.query(
         `INSERT INTO result (studentId) VALUES ($1)`,
         [result.studentId],
       );
-      
-      result.details.forEach((detail) => {
-        const {insertId} = await txEntityManager.query(
+      console.log(`este es id,${result.id}`);
+      result.details.forEach(async (detail) => {
+        console.log(`este es detail,${detail.resultId}`);
+        const {} = await txEntityManager.query(
           `INSERT INTO result_detail (resultId, questionId, value) VALUES ($1, $2, $3)`,
-          [resultId, detail.questionId, detail.value ],
+          [detail.resultId, detail.questionId, detail.value],
         );
       });
 
-      return this.findById(insertId);
+      return this.findById(resultId);
     });
   }
 
@@ -37,7 +37,7 @@ export class SQLResultRepository implements ResultRepository {
       return undefined;
     }
 
-    const result = new Result(rows[0].id, rows[0].resultId);
+    const result = new Result(rows[0].id, rows[0].resultId, rows[0].details);
 
     return result;
   }

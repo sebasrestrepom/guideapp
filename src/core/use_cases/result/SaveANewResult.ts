@@ -18,7 +18,7 @@ export class SaveANewResult {
   constructor(
     @Inject('ResultDetailRepository')
     private resultDetailRepository: ResultDetailRepository,
-    @Inject('ResultRepository') 
+    @Inject('ResultRepository')
     private resultRepository: ResultRepository,
     @Inject('QuestionRepository')
     private questionRepository: QuestionRepository,
@@ -26,17 +26,25 @@ export class SaveANewResult {
   ) {}
 
   async execute(studentId: number, details: DetailRequest[]): Promise<Result> {
-    //Validaciones, como caules
-
     //validar que el estudiante exsita
+    const student = await this.studentRepository.findById(studentId);
+    if (student === undefined) {
+      throw new Error('Student not found');
+    }
 
     //creamos el resultado
     const result = Result.createANewResult(studentId);
 
-    details.forEach((detail) => {
+    details.forEach(async (detail) => {
       //validar que la question exista
+      const question = await this.questionRepository.findById(
+        detail.questionId,
+      );
+      if (question === undefined) {
+        throw new Error('Question not found');
+      }
 
-      result.addNewDetail(detail.questionId, detail.value);
+      result.addNewDetail(detail.resultId, detail.questionId, detail.value);
     });
 
     const newResult = await this.resultRepository.save(result);

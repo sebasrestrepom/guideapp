@@ -8,11 +8,13 @@ import { DeleteSchoolController } from 'src/http/controller/school/delete-school
 import { GetSchoolByCityController } from 'src/http/controller/school/get-school-by-city/GetSchoolByCityController';
 import { SaveANewSchoolController } from 'src/http/controller/school/save-a-new-school/SaveANewSchoolController';
 import { UpdateDataSchoolController } from 'src/http/controller/school/update-data-school/UpdateDataSchoolController';
+import { SaveANewResultController } from './controller/result/save-a-new-result/SaveANewResultController';
 import { SQLDepartmentRepository } from 'src/core/infrastructure/department/SQLDepartmentRepository';
 import { SQLCityRepository } from 'src/core/infrastructure/city/SQLCityRepository';
 import { SQLSchoolRepository } from 'src/core/infrastructure/school/SQLSchoolRepository';
 import { SQLQuestionRepository } from 'src/core/infrastructure/question/SQLQuestionRepository';
 import { SQLStudentRepository } from 'src/core/infrastructure/student/SQLStudentRepository';
+import { SQLResultRepository } from 'src/core/infrastructure/result/SQLResultRepository';
 import { GetCityByDepartment } from 'src/core/use_cases/city/GetCityByDepartment';
 import { SaveANewCity } from 'src/core/use_cases/city/SaveANewCity';
 import { GetAllDepartment } from 'src/core/use_cases/department/GetAllDepartment';
@@ -22,6 +24,7 @@ import { DeleteSchool } from 'src/core/use_cases/school/DeleteSchool';
 import { GetSchoolByCity } from 'src/core/use_cases/school/GetSchoolByCity';
 import { SaveANewSchool } from 'src/core/use_cases/school/SaveANewSchool';
 import { UpdateDataSchool } from 'src/core/use_cases/school/UpdateDataSchool';
+import { SaveANewResult } from 'src/core/use_cases/result/SaveANewResult';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './ormconfig';
 
@@ -41,6 +44,7 @@ import * as ormconfig from './ormconfig';
     GetSchoolByCityController,
     SaveANewSchoolController,
     UpdateDataSchoolController,
+    SaveANewResultController,
   ],
   providers: [
     { provide: 'DepartmentRepository', useClass: SQLDepartmentRepository },
@@ -48,6 +52,8 @@ import * as ormconfig from './ormconfig';
     { provide: 'SchoolRepository', useClass: SQLSchoolRepository },
     { provide: 'QuestionRepository', useClass: SQLQuestionRepository },
     { provide: 'StudentRepository', useClass: SQLStudentRepository },
+    { provide: 'ResultRepository', useClass: SQLResultRepository },
+    { provide: 'ResultDetailRepository', useClass: SQLResultRepository },
     GetCityByDepartment,
     SaveANewCity,
     GetAllDepartment,
@@ -57,6 +63,7 @@ import * as ormconfig from './ormconfig';
     GetSchoolByCity,
     SaveANewSchool,
     UpdateDataSchool,
+    SaveANewResult,
   ],
   exports: [],
 })

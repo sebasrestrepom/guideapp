@@ -6,7 +6,7 @@ export class VocationTable1621102447314 implements MigrationInterface {
         CREATE TABLE vocation (
           id SERIAL PRIMARY KEY,code varchar(255) NOT NULL,name varchar(255) NOT NULL);
       `);
-    
+
     await queryRunner.query(`ALTER SEQUENCE vocation_id_seq RESTART WITH 1127`);
   }
 
