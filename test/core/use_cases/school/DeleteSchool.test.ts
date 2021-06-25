@@ -1,5 +1,4 @@
 import { City } from 'src/core/domain/city/City';
-import { CityNotFound } from 'src/core/domain/city/CityNotFound';
 import { CityRepository } from 'src/core/domain/city/CityRepository';
 import { School } from 'src/core/domain/school/School';
 import { SchoolNotFound } from 'src/core/domain/school/SchoolNotFound';
@@ -50,9 +49,9 @@ describe('DeleteSchool should', () => {
     given_a_save_a_new_school_use_case();
 
     expect(async () => {
-        await when_delete_the_school_with_this_data(school.id);
-    }).rejects.toThrow(SchoolNotFound)
-});
+      await when_delete_the_school_with_this_data(school.id);
+    }).rejects.toThrow(SchoolNotFound);
+  });
 
   function given_a_save_a_new_school_use_case() {
     schoolRepository = new InMemorySchoolRepository();
@@ -70,13 +69,13 @@ describe('DeleteSchool should', () => {
   /*when*/
 
   async function when_delete_the_school_with_this_data(id: number) {
-    school = await deleteSchool.execute(id);
+    await deleteSchool.execute(id);
   }
 
   /*then*/
 
   function then_the_school_will_have_been_delete() {
-    expect(school).not.toBeNull();
-    expect(school).not.toBeUndefined();
+    expect(school).toBeNull();
+    expect(school).toBeUndefined();
   }
 });

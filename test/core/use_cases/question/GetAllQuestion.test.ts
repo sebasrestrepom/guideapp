@@ -1,12 +1,7 @@
-import { Department } from 'src/core/domain/department/Department';
-import { DepartmentRepository } from 'src/core/domain/department/DepartmentRepository';
 import { Question } from 'src/core/domain/question/Question';
 import { QuestionRepository } from 'src/core/domain/question/QuestionRepository';
-import { InMemoryDepartmentRepository } from 'src/core/infrastructure/department/InMemoryDepartmentRepository';
 import { InMemoryQuestionRepository } from 'src/core/infrastructure/question/InMemoryQuestionRepository';
-import { GetAllDepartment } from 'src/core/use_cases/department/GetAllDepartment';
 import { GetAllQuestion } from 'src/core/use_cases/question/GetAllQuestion';
-import { QuestionMother } from 'test/core/domain/question/QuestionMother';
 
 /* 
 1 Given -- tienes que poner el sistem en el estado
@@ -33,8 +28,6 @@ describe('GetAllQuestion should', () => {
   let question: Question;
 
   test('save a new question', async () => {
-    const question = QuestionMother.createAnQuestion();
-
     given_a_save_a_new_question_use_case();
 
     await when_get_the_question_with_this_data();
@@ -48,10 +41,11 @@ describe('GetAllQuestion should', () => {
   }
 
   async function when_get_the_question_with_this_data() {
-    question = await getAllQuestion.execute();
+    await getAllQuestion.execute();
   }
 
-  function then_list_the_question_with_this_information() {
+  async function then_list_the_question_with_this_information() {
+    await getAllQuestion.execute();
     expect(question).not.toBeNull();
     expect(question).not.toBeUndefined();
   }

@@ -5,19 +5,19 @@ export class InMemorySchoolRepository implements SchoolRepository {
   private _database = new Map<string, School>();
 
   update(school: School): Promise<School> {
-     this._database.set(`${school.id}`, school);
+    this._database.set(`${school.id}`, school);
     return Promise.resolve(school);
   }
 
-  delete(schoolId: number): Promise<School> {
-    const school =  this._database.delete(`${schoolId}`);
+  delete(id: number): Promise<void> {
+    this._database.delete(`${id}`);
 
-    return Promise.resolve(school);
+    return Promise.resolve();
   }
 
-  findById(schoolId: number): Promise<School> {
-    const school = this._database.get(`${schoolId}`);
-    
+  findById(id: number): Promise<School> {
+    const school = this._database.get(`${id}`);
+
     return Promise.resolve(school);
   }
 
@@ -30,7 +30,7 @@ export class InMemorySchoolRepository implements SchoolRepository {
     }
 
     const newSchool = new School(newIndex, school.cityId, school.name);
- 
+
     this._database.set(`${newSchool.id}`, newSchool);
 
     return Promise.resolve(newSchool);

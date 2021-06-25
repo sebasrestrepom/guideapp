@@ -34,13 +34,9 @@ describe('GetCityByDepartment should', () => {
     given_a_save_a_new_city_use_case();
     await and_a_city_with_this_data(city);
 
-    await when_get_the_city_with_this_data(
-      city.departmentId,
-      city.code,
-      city.name,
-    );
+    await when_get_the_city_with_this_data(city.departmentId);
 
-    then_list_the_cities_with_this_information();
+    then_list_the_cities_with_this_information(city.departmentId);
   });
 
   function given_a_save_a_new_city_use_case() {
@@ -52,15 +48,14 @@ describe('GetCityByDepartment should', () => {
     await cityRepository.save(city);
   }
 
-  async function when_get_the_city_with_this_data(
-    departmentId: number,
-    code: number,
-    name: string,
-  ) {
-    city = await getCityByDepartment.execute(departmentId);
+  async function when_get_the_city_with_this_data(departmentId: number) {
+    await getCityByDepartment.execute(departmentId);
   }
 
-  function then_list_the_cities_with_this_information() {
+  async function then_list_the_cities_with_this_information(
+    departmentId: number,
+  ) {
+    await getCityByDepartment.execute(departmentId);
     expect(city).not.toBeNull();
     expect(city).not.toBeUndefined();
   }

@@ -2,7 +2,6 @@ import { Department } from 'src/core/domain/department/Department';
 import { DepartmentRepository } from 'src/core/domain/department/DepartmentRepository';
 import { InMemoryDepartmentRepository } from 'src/core/infrastructure/department/InMemoryDepartmentRepository';
 import { GetAllDepartment } from 'src/core/use_cases/department/GetAllDepartment';
-import { DepartmentMother } from 'test/core/domain/department/DepartmentMother';
 
 /* 
 1 Given -- tienes que poner el sistem en el estado
@@ -29,8 +28,6 @@ describe('GetAllDepartment should', () => {
   let department: Department;
 
   test('save a new department', async () => {
-    const department = DepartmentMother.createAnDepartment();
-
     given_a_save_a_new_department_use_case();
 
     await when_get_the_department_with_this_data();
@@ -44,10 +41,11 @@ describe('GetAllDepartment should', () => {
   }
 
   async function when_get_the_department_with_this_data() {
-    department = await getAllDepartment.execute();
+    await getAllDepartment.execute();
   }
 
-  function then_list_the_departments_with_this_information() {
+  async function then_list_the_departments_with_this_information() {
+    await getAllDepartment.execute();
     expect(department).not.toBeNull();
     expect(department).not.toBeUndefined();
   }

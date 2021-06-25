@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { SchoolRepository } from 'src/core/domain/school/SchoolRepository';
 import { CityRepository } from 'src/core/domain/city/CityRepository';
 import { School } from 'src/core/domain/school/School';
-import { SchoolNotFound } from 'src/core/domain/school/SchoolNotFound'
+import { SchoolNotFound } from 'src/core/domain/school/SchoolNotFound';
 import { CityNotFound } from 'src/core/domain/city/CityNotFound';
 
 @Injectable()
@@ -23,11 +23,9 @@ export class UpdateDataSchool {
     if (city === undefined) {
       throw new CityNotFound();
     }
-    
+
     school.updateData(cityId, name);
     const updateSchool = this.schoolRepository.update(school);
     return Promise.resolve(updateSchool);
   }
-  
 }
-
