@@ -7,24 +7,33 @@ export class SQLResultRepository implements ResultRepository {
   constructor(@InjectEntityManager() private manager: EntityManager) {}
 
   async save(result: Result): Promise<Result> {
+    const query2 = await this.manager.query(
+      `INSERT INTO resultg (studentId) VALUES ($1)`,
+      [result.studentId],
+    );
+
+    console.log('quexxxxxxxry', query2);
+    return undefined;
+
+    /*
     return await this.manager.transaction(async (txEntityManager) => {
-      const {
-        insertId: resultId,
-      } = await txEntityManager.query(
+      const query2 = await txEntityManager.query(
         `INSERT INTO result (studentId) VALUES ($1)`,
         [result.studentId],
       );
-      console.log(`este es id,${result.id}`);
-      result.details.forEach(async (detail) => {
-        console.log(`este es detail,${detail.resultId}`);
-        const {} = await txEntityManager.query(
-          `INSERT INTO result_detail (resultId, questionId, value) VALUES ($1, $2, $3)`,
-          [detail.resultId, detail.questionId, detail.value],
-        );
-      });
 
-      return this.findById(resultId);
-    });
+      console.log('query', query2);
+
+      /* for (let i = 0; i < result.details.length; i++) {
+        const detail = result.details[i];
+        await txEntityManager.query(
+          `INSERT INTO resultDetail (resultId, questionId, value) VALUES ($1, $2, $3)`,
+          [undefined, detail.questionId, detail.value],
+        );
+      }
+
+      return this.findById(result.id);
+    });*/
   }
 
   async findById(resultId: number): Promise<Result | undefined> {
