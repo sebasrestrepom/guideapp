@@ -1,5 +1,3 @@
-import { BaseError } from "../shared/BaseError";
+import { BaseError } from '../shared/BaseError';
 
-export class CityNotFound extends BaseError {
-
-}
+export class CityNotFound extends BaseError {}

@@ -23,7 +23,7 @@ export class InMemoryCityRepository implements CityRepository {
     } else {
       newIndex = city.id;
     }
-  
+
     const newCity = new City(newIndex, city.departmentId, city.code, city.name);
 
     this._database.set(`${newCity.id}`, newCity);
