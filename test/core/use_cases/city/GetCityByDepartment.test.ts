@@ -26,7 +26,7 @@ then
 describe('GetCityByDepartment should', () => {
   let getCityByDepartment: GetCityByDepartment;
   let cityRepository: CityRepository;
-  let city: City;
+  let city: City[];
 
   test('save a new city', async () => {
     const city = CityMother.createAnCity();
@@ -36,7 +36,7 @@ describe('GetCityByDepartment should', () => {
 
     await when_get_the_city_with_this_data(city.departmentId);
 
-    then_list_the_cities_with_this_information(city.departmentId);
+    await then_list_the_cities_with_this_information(city.departmentId);
   });
 
   function given_a_save_a_new_city_use_case() {
@@ -49,14 +49,13 @@ describe('GetCityByDepartment should', () => {
   }
 
   async function when_get_the_city_with_this_data(departmentId: number) {
-    await getCityByDepartment.execute(departmentId);
+    city = await getCityByDepartment.execute(departmentId);
   }
 
   async function then_list_the_cities_with_this_information(
     departmentId: number,
   ) {
     await getCityByDepartment.execute(departmentId);
-    expect(city).not.toBeNull();
     expect(city).not.toBeUndefined();
   }
 });

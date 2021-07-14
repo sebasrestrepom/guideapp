@@ -53,20 +53,6 @@ describe('SaveANewStudent should', () => {
     }).rejects.toThrow(SchoolNotFound);
   });
 
-  test('throw an error when email exists', async () => {
-    given_a_save_a_new_student_use_case();
-
-    expect(async () => {
-      await when_save_the_student_with_this_data(
-        50,
-        'sebastian',
-        'restre',
-        'sebas@gmail.com',
-        '1234',
-      );
-    }).rejects.toThrow(SchoolNotFound);
-  });
-
   test('throw an error when email already exists', async () => {
     const student = await StudentMother.createAnStudent();
 
@@ -81,7 +67,7 @@ describe('SaveANewStudent should', () => {
         'sebas@gmail.com',
         '1234',
       );
-    }).rejects.toThrow(EmailNotFound);
+    }).rejects.toThrow(EmailAlreadyExists);
   });
 
   async function and_a_student_with_this_data(student: Student) {
@@ -135,4 +121,4 @@ describe('SaveANewStudent should', () => {
   }
 });
 
-export class EmailNotFound extends BaseError {}
+export class EmailAlreadyExists extends BaseError {}

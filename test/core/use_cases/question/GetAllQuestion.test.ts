@@ -25,14 +25,14 @@ then
 describe('GetAllQuestion should', () => {
   let getAllQuestion: GetAllQuestion;
   let questionRepository: QuestionRepository;
-  let question: Question;
+  let question: Question[];
 
   test('save a new question', async () => {
     given_a_save_a_new_question_use_case();
 
     await when_get_the_question_with_this_data();
 
-    then_list_the_question_with_this_information();
+    await then_list_the_question_with_this_information();
   });
 
   function given_a_save_a_new_question_use_case() {
@@ -41,12 +41,11 @@ describe('GetAllQuestion should', () => {
   }
 
   async function when_get_the_question_with_this_data() {
-    await getAllQuestion.execute();
+    question = await getAllQuestion.execute();
   }
 
   async function then_list_the_question_with_this_information() {
     await getAllQuestion.execute();
-    expect(question).not.toBeNull();
     expect(question).not.toBeUndefined();
   }
 });

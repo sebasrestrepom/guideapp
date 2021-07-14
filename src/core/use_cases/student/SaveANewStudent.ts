@@ -3,6 +3,8 @@ import { Student } from 'src/core/domain/student/Student';
 import { StudentRepository } from 'src/core/domain/student/StudentRepository';
 import { SchoolRepository } from 'src/core/domain/school/SchoolRepository';
 import * as bcrypt from 'bcrypt';
+import { SchoolNotFound } from 'src/core/domain/school/SchoolNotFound';
+import { EmailAlreadyExists } from 'test/core/use_cases/student/SaveANewStudent.test';
 
 @Injectable()
 export class SaveANewStudent {
@@ -20,11 +22,11 @@ export class SaveANewStudent {
   ): Promise<Student> {
     const emailValidate = await this.studentRepository.findByEmail(email);
     if (emailValidate != undefined) {
-      throw new Error('Error, Email already exists');
+      throw new EmailAlreadyExists();
     }
     const school = await this.schoolRepository.findById(schoolId);
     if (school === undefined) {
-      throw new Error('School not found');
+      throw new SchoolNotFound();
     }
     const salt = await bcrypt.genSalt();
     const passwordEncrypted = await bcrypt.hash(password.toString(), salt);

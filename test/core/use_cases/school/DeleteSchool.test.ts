@@ -1,9 +1,6 @@
-import { City } from 'src/core/domain/city/City';
-import { CityRepository } from 'src/core/domain/city/CityRepository';
 import { School } from 'src/core/domain/school/School';
 import { SchoolNotFound } from 'src/core/domain/school/SchoolNotFound';
 import { SchoolRepository } from 'src/core/domain/school/SchoolRepository';
-import { InMemoryCityRepository } from 'src/core/infrastructure/city/InMemoryCityRepository';
 import { InMemorySchoolRepository } from 'src/core/infrastructure/school/InMemorySchoolRepository';
 import { DeleteSchool } from 'src/core/use_cases/school/DeleteSchool';
 import { SchoolMother } from 'test/core/domain/school/SchoolMother';
@@ -30,36 +27,32 @@ then
 describe('DeleteSchool should', () => {
   let deleteSchool: DeleteSchool;
   let schoolRepository: SchoolRepository;
-  let cityRepository: CityRepository;
   let school: School;
 
-  test('save a new school', async () => {
+  test('Delete a school', async () => {
+    /*1- Save a new School
+      2- Delete school */
     const school = SchoolMother.createAnSchool();
 
-    given_a_save_a_new_school_use_case();
-    await and_a_city_with_this_id(school.cityId);
+    given_delete_school_use_case();
     await and_a_school_with_this_data(school);
 
     await when_delete_the_school_with_this_data(school.id);
 
-    then_the_school_will_have_been_delete();
+    await then_the_school_will_have_been_delete(school.id);
   });
 
   test('throw an error when school does not exists', async () => {
-    given_a_save_a_new_school_use_case();
+    given_delete_school_use_case();
 
     expect(async () => {
-      await when_delete_the_school_with_this_data(school.id);
+      await when_delete_the_school_with_this_data(10);
     }).rejects.toThrow(SchoolNotFound);
   });
 
-  function given_a_save_a_new_school_use_case() {
+  function given_delete_school_use_case() {
     schoolRepository = new InMemorySchoolRepository();
-    cityRepository = new InMemoryCityRepository();
-  }
-
-  async function and_a_city_with_this_id(cityId: number) {
-    await cityRepository.save(new City(cityId, 1, 1, 'Cartago'));
+    deleteSchool = new DeleteSchool(schoolRepository);
   }
 
   async function and_a_school_with_this_data(school: School) {
@@ -74,8 +67,8 @@ describe('DeleteSchool should', () => {
 
   /*then*/
 
-  function then_the_school_will_have_been_delete() {
-    expect(school).toBeNull();
+  async function then_the_school_will_have_been_delete(schoolId: number) {
+    school = await schoolRepository.findById(schoolId);
     expect(school).toBeUndefined();
   }
 });

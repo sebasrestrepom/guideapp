@@ -25,14 +25,14 @@ then
 describe('GetAllDepartment should', () => {
   let getAllDepartment: GetAllDepartment;
   let departmentRepository: DepartmentRepository;
-  let department: Department;
+  let department: Department[];
 
   test('save a new department', async () => {
     given_a_save_a_new_department_use_case();
 
     await when_get_the_department_with_this_data();
 
-    then_list_the_departments_with_this_information();
+    await then_list_the_departments_with_this_information();
   });
 
   function given_a_save_a_new_department_use_case() {
@@ -41,7 +41,7 @@ describe('GetAllDepartment should', () => {
   }
 
   async function when_get_the_department_with_this_data() {
-    await getAllDepartment.execute();
+    department = await getAllDepartment.execute();
   }
 
   async function then_list_the_departments_with_this_information() {
