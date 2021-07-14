@@ -4,24 +4,31 @@ import { SchoolRepository } from 'src/core/domain/school/SchoolRepository';
 export class InMemorySchoolRepository implements SchoolRepository {
   private _database = new Map<string, School>();
 
-  update(school: School): Promise<void> {
+  update(school: School): Promise<School> {
     this._database.set(`${school.id}`, school);
+    return Promise.resolve(school);
+  }
+
+  delete(id: number): Promise<void> {
+    this._database.delete(`${id}`);
+
     return Promise.resolve();
   }
 
-  delete(schoolId: number): Promise<void> {
-    this._database.delete(`${schoolId}`);
-    return Promise.resolve();
-  }
-
-  findById(schoolId: number): Promise<School> {
-    const school = this._database.get(`${schoolId}`);
+  findById(id: number): Promise<School> {
+    const school = this._database.get(`${id}`);
 
     return Promise.resolve(school);
   }
 
   save(school: School): Promise<School> {
-    const newIndex = this._database.size + 1;
+    let newIndex;
+    if (school.id === undefined) {
+      newIndex = this._database.size + 1;
+    } else {
+      newIndex = school.id;
+    }
+
     const newSchool = new School(newIndex, school.cityId, school.name);
 
     this._database.set(`${newSchool.id}`, newSchool);

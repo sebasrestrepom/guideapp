@@ -6,10 +6,10 @@ import { SchoolRepository } from 'src/core/domain/school/SchoolRepository';
 export class SQLSchoolRepository implements SchoolRepository {
   constructor(@InjectEntityManager() private manager: EntityManager) {}
 
-  async findById(schoolId: number): Promise<School> {
+  async findById(id: number): Promise<School> {
     const rows = await this.manager.query(
       `SELECT id,cityId, name FROM school WHERE id=$1`,
-      [schoolId],
+      [id],
     );
 
     if (rows == undefined || rows.length == 0) {
@@ -29,8 +29,8 @@ export class SQLSchoolRepository implements SchoolRepository {
     return newSchool;
   }
 
-  async delete(schoolId: number): Promise<void> {
-    await this.manager.query(`DELETE FROM school WHERE id = $1`, [schoolId]);
+  async delete(id: number): Promise<void> {
+    return await this.manager.query(`DELETE FROM school WHERE id = $1`, [id]);
   }
 
   async getByCity(cityId: number): Promise<School[]> {
@@ -43,8 +43,8 @@ export class SQLSchoolRepository implements SchoolRepository {
     return result;
   }
 
-  async update(school: School): Promise<void> {
-    await this.manager.query(
+  async update(school: School): Promise<School> {
+    return await this.manager.query(
       `UPDATE school SET cityId = $1,name = $2 WHERE id = $3`,
       [school.cityId, school.name, school.id],
     );
