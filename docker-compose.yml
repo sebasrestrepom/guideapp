@@ -7,9 +7,9 @@ services:
     ports:
       - 7000:5432
     environment:
-      POSTGRES_DB: guideappdb
-      POSTGRES_USER: guideappuser
-      POSTGRES_PASSWORD: guideapp
+      POSTGRES_DB: "${DATABASE_NAME}"
+      POSTGRES_USER: "${DATABASE_USERNAME}"
+      POSTGRES_PASSWORD: "${DATABASE_PASSWORD}"
     volumes:
       - ./.dataPg:/var/lib/postgresql/data  
 
